@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Manrope:wght@300..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
 <link rel="preload" as="image" href="https://raw.githubusercontent.com/volkancatak1309-max/premium-3d-assets/main/projects/cm-bau/Wooden_house_frame_202604271623.jpeg" />
-<link rel="preload" as="video" type="video/mp4" href="https://raw.githubusercontent.com/volkancatak1309-max/premium-3d-assets/main/projects/cm-bau/Dust_particles_in_202604271624.mp4" media="(min-width: 768px)" />
+<link rel="preload" as="video" type="video/mp4" href="https://raw.githubusercontent.com/volkancatak1309-max/premium-3d-assets/main/projects/cm-bau/Dust_particles_in_202604271624.mp4" />
 
 <style>
 :root {
@@ -291,6 +291,7 @@ img, video { max-width: 100%; display: block; }
 .hero-media video { z-index: 2; opacity: 0; transition: opacity 1.2s ease-out; }
 .hero-media video.is-ready { opacity: 1; }
 .hero-media.video-loaded img { opacity: 0; }
+
 
 
 .hero-overlay {
@@ -667,6 +668,17 @@ img, video { max-width: 100%; display: block; }
   font-style: italic; color: var(--copper);
   font-weight: 300; margin: 0 -0.05em;
 }
+.cm-tagline {
+  margin-top: 1.5rem;
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  line-height: 1.5; max-width: 680px;
+  color: var(--ivory); font-variation-settings: "opsz" 144, "SOFT" 60;
+}
+.cm-tagline em {
+  font-style: italic; color: var(--copper);
+  font-weight: 400;
+}
 .philosophy-meaning {
   margin-top: 2.5rem;
   display: grid; grid-template-columns: repeat(2, 1fr);
@@ -696,6 +708,110 @@ img, video { max-width: 100%; display: block; }
 }
 @media (max-width: 600px) {
   .philosophy-meaning { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GUARANTEES — Termin + Budget (en kritik bölüm)
+   ═══════════════════════════════════════════════════════════ */
+.guarantees {
+  background: var(--bg-void);
+  border-top: 1px solid var(--line-soft);
+  position: relative;
+  overflow: hidden;
+}
+.guarantees::before {
+  content: ""; position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 1px; height: 80px;
+  background: linear-gradient(180deg, var(--copper), transparent);
+}
+.guarantees-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.guarantee {
+  position: relative;
+  padding: 3rem 2.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+  transition: border-color 0.5s, transform 0.5s;
+}
+@media (min-width: 768px) {
+  .guarantee { padding: 4rem 3.5rem; }
+}
+@media (hover: hover) {
+  .guarantee:hover {
+    border-color: var(--copper);
+    transform: translateY(-4px);
+  }
+  .guarantee:hover .guarantee-icon { color: var(--copper-bright); }
+}
+.guarantee-icon {
+  width: 56px; height: 56px;
+  color: var(--copper);
+  margin-bottom: 1.5rem;
+  transition: color 0.4s, transform 0.6s var(--ease-out);
+}
+.guarantee:hover .guarantee-icon { transform: rotate(15deg); }
+.guarantee-icon svg { width: 100%; height: 100%; }
+.guarantee-num {
+  position: absolute;
+  top: 2rem; right: 2.5rem;
+  font-family: var(--font-display);
+  font-weight: 200; font-style: italic;
+  font-size: 2.2rem;
+  color: var(--copper);
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 144;
+  opacity: 0.5;
+}
+@media (min-width: 768px) {
+  .guarantee-num { top: 3rem; right: 3.5rem; font-size: 2.8rem; }
+}
+.guarantee h3 {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  letter-spacing: -0.025em; color: var(--ivory);
+  margin-bottom: 1rem;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+}
+.guarantee-emph {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  font-size: 1.15rem !important;
+  color: var(--copper-bright) !important;
+  margin-bottom: 0.75rem !important;
+  font-variation-settings: "opsz" 144, "SOFT" 70;
+}
+.guarantee p:not(.guarantee-emph) {
+  color: var(--ivory-dim);
+  font-size: 0.95rem; line-height: 1.7;
+  font-weight: 300;
+}
+.guarantees-foot {
+  margin-top: 3rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem; letter-spacing: 0.15em;
+  color: var(--ivory-dim);
+  display: flex;
+  align-items: center; justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.guarantees-foot-mark {
+  width: 8px; height: 8px;
+  background: var(--copper);
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@media (max-width: 768px) {
+  .guarantees-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .guarantees-foot { font-size: 0.7rem; padding: 0 0.5rem; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -783,6 +899,126 @@ img, video { max-width: 100%; display: block; }
 }
 @media (max-width: 600px) {
   .services-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRINCIPLES — Mamer'ın 5 hizmet prensibi
+   ═══════════════════════════════════════════════════════════ */
+.principles {
+  background: var(--bg-base);
+  border-top: 1px solid var(--line-soft);
+}
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line-soft);
+  border: 1px solid var(--line-soft);
+}
+.principle {
+  background: var(--bg-base);
+  padding: 2rem 1.5rem;
+  position: relative;
+  transition: background 0.5s;
+}
+@media (min-width: 768px) {
+  .principle { padding: 3rem 2.5rem; }
+}
+@media (hover: hover) {
+  .principle:hover { background: var(--bg-elevated); }
+}
+.principle-num {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.3em; color: var(--copper);
+  margin-bottom: 1.25rem;
+}
+.principle h3 {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  letter-spacing: -0.02em; color: var(--ivory);
+  margin-bottom: 1rem;
+  font-variation-settings: "opsz" 144;
+  line-height: 1.15;
+}
+.principle p {
+  color: var(--ivory-dim); font-size: 0.9rem;
+  line-height: 1.65; font-weight: 300;
+}
+.principle p + p { margin-top: 0.75rem; }
+.principle-emph {
+  font-family: var(--font-display); font-weight: 400;
+  font-style: italic; color: var(--copper) !important;
+  font-size: 1.05rem !important;
+}
+@media (min-width: 768px) {
+  .principle p { font-size: 0.95rem; }
+}
+.principle:nth-child(4), .principle:nth-child(5) {
+  grid-column: span 1;
+}
+@media (max-width: 900px) {
+  .principles-grid { grid-template-columns: repeat(2, 1fr); }
+  .principle:nth-child(5) { grid-column: span 2; }
+}
+@media (max-width: 600px) {
+  .principles-grid { grid-template-columns: 1fr; }
+  .principle:nth-child(5) { grid-column: span 1; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WERTE — Engagement + Vertrauen
+   ═══════════════════════════════════════════════════════════ */
+.werte {
+  background: var(--bg-void);
+  border-top: 1px solid var(--line-soft);
+}
+.werte-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.werte-card {
+  padding: 2.5rem 2rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+  background: var(--bg-elevated);
+  position: relative;
+  transition: border-color 0.5s, transform 0.5s;
+}
+@media (min-width: 768px) {
+  .werte-card { padding: 3.5rem 3rem; }
+}
+@media (hover: hover) {
+  .werte-card:hover {
+    border-color: var(--copper);
+    transform: translateY(-4px);
+  }
+}
+.werte-num {
+  font-family: var(--font-display); font-weight: 200;
+  font-style: italic;
+  font-size: 2.5rem;
+  letter-spacing: -0.02em;
+  color: var(--copper);
+  margin-bottom: 1.5rem;
+  font-variation-settings: "opsz" 144;
+  line-height: 1;
+}
+.werte-card h3 {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  letter-spacing: -0.02em; color: var(--ivory);
+  margin-bottom: 1rem;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+}
+.werte-card p {
+  color: var(--ivory-dim); font-size: 1rem;
+  line-height: 1.65; font-weight: 300;
+}
+@media (max-width: 768px) {
+  .werte-grid { grid-template-columns: 1fr; gap: 1.5rem; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1013,6 +1249,21 @@ img, video { max-width: 100%; display: block; }
 @media (min-width: 768px) {
   .about-attribution-line { width: 50px; }
 }
+.about-attribution-contact {
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.1em;
+  color: var(--ivory-dim);
+}
+.about-attribution-contact a:hover { color: var(--copper-bright); }
+.about-team {
+  display: grid; grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.about-team .about-attribution {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-soft);
+}
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .about-portrait { max-width: 280px; aspect-ratio: 1/1; }
@@ -1046,6 +1297,17 @@ img, video { max-width: 100%; display: block; }
   font-variation-settings: "opsz" 144, "SOFT" 50;
 }
 .cta-headline em { font-style: italic; color: var(--copper); }
+.cta-overline {
+  font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--copper);
+  margin-bottom: 1.5rem;
+  display: inline-flex; align-items: center; gap: 0.7rem;
+}
+.cta-overline::before {
+  content: ""; width: 30px; height: 1px;
+  background: var(--copper);
+}
 .cta-actions {
   display: flex; gap: 1rem;
   justify-content: flex-end; flex-wrap: wrap;
@@ -1166,6 +1428,28 @@ img, video { max-width: 100%; display: block; }
   border-color: var(--copper);
   background: rgba(200, 150, 105, 0.1);
   color: var(--copper-bright);
+}
+.field-radio-easter label {
+  border-style: dashed !important;
+}
+.brieftaube-msg {
+  margin-top: 0.85rem;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ivory-dim);
+  font-style: italic;
+  background: rgba(200, 150, 105, 0.05);
+  border-left: 2px solid var(--copper);
+  border-radius: 2px;
+  display: none;
+  animation: fadeInUp 0.4s var(--ease-out);
+}
+.brieftaube-msg.is-visible { display: block; }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 .contact-submit {
   width: 100%; padding: 1.1rem;
@@ -1334,7 +1618,7 @@ img, video { max-width: 100%; display: block; }
   </div>
   <div class="mobile-menu-foot">
     +43 5522 93 0 87<br>
-    Im Kratta 2 · 6800 Feldkirch
+    Im Kratta 2 · 6800 Feldkirch, AT
   </div>
 </div>
 
@@ -1356,14 +1640,15 @@ img, video { max-width: 100%; display: block; }
         <span>Generalunternehmer · seit 2023</span>
       </div>
       <h1 class="hero-title" id="heroTitle">
-        <span class="line"><span>Wo Handwerk</span></span>
-        <span class="line"><span><em>Architektur</em></span></span>
-        <span class="line"><span>wird<span class="accent-mark"></span></span></span>
+        <span class="line"><span>Präzision<span class="accent-mark"></span></span></span>
+        <span class="line"><span><em>Effizienz</em><span class="accent-mark"></span></span></span>
+        <span class="line"><span>Handschlag.</span></span>
       </h1>
       <p class="hero-sub" id="heroSub">
-        Strukturierte Bauprozesse in Vorarlberg. Neubau, Umbau,
-        Sanierung und Holzbau — verbunden durch ein Versprechen:
-        Handschlagqualität, die Bestand hat.
+        Ihr bevorzugter Generalunternehmer in Vorarlberg für Neubau, Umbau,
+        Sanierung und Holzbau. Wir stehen für strukturierte Bauprozesse,
+        die Qualität, Zeit und Budget vereinen — von der ersten Idee
+        bis zur Schlüsselübergabe.
       </p>
       <div class="hero-actions" id="heroActions">
         <a href="#kontakt" class="btn-primary">
@@ -1401,11 +1686,11 @@ img, video { max-width: 100%; display: block; }
       <div class="stat-label">Gegründet</div>
     </div>
     <div class="stat reveal reveal-d1">
-      <div class="stat-num" data-counter="27">0</div>
+      <div class="stat-num"><span data-counter="27">0</span><em>+</em></div>
       <div class="stat-label">Projekte</div>
     </div>
     <div class="stat reveal reveal-d2">
-      <div class="stat-num" data-counter="56">0</div>
+      <div class="stat-num"><span data-counter="56">0</span><em>+</em></div>
       <div class="stat-label">Zufriedene Kunden</div>
     </div>
     <div class="stat reveal reveal-d3">
@@ -1422,16 +1707,66 @@ img, video { max-width: 100%; display: block; }
     <div class="cm-mark reveal reveal-d1">
       <em>C</em><span class="ampersand">&</span><em>M</em>
     </div>
-    <div class="philosophy-meaning">
-      <div class="philosophy-pair reveal reveal-d2">
-        <h4>Craftsmanship</h4>
-        <p>Über 15 Jahre Erfahrung im Holzbau und in der Baupraxis. Tradition, die in jedem Detail sichtbar ist — vom ersten Strich bis zur Schlüsselübergabe.</p>
+    <p class="cm-tagline reveal reveal-d2">
+      CM steht für <em>Craftsmanship & Modernity.</em> Wir bewahren das
+      traditionelle Handwerk und sehen die Zukunft in der konsequenten
+      Modernisierung.
+    </p>
+  </div>
+</section>
+
+<!-- GUARANTEES: Budget + Termin (Mamer'ın Bauherren-Pain-Points'u) -->
+<section class="section guarantees">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-label reveal">Bauen ohne Kompromisse</div>
+        <h2 class="section-title reveal reveal-d1">Was Bauherren<br /><em>von uns erwarten dürfen.</em></h2>
       </div>
-      <div class="philosophy-pair reveal reveal-d3">
-        <h4>Modernity</h4>
-        <p>Strukturierte Prozesse, klare Koordination, durchdachte Materialwahl. Wir sehen die Zukunft im Bewahren — und im konsequenten Modernisieren.</p>
+      <p class="section-lead reveal reveal-d2">
+        Als Generalunternehmer übernehmen wir die komplette Koordination aller
+        regionalen Fachbetriebe aus dem Ländle und Umgebung. Zwei Versprechen
+        stehen dabei kompromisslos im Vordergrund.
+      </p>
+    </div>
+
+    <div class="guarantees-grid">
+      <div class="guarantee reveal">
+        <div class="guarantee-icon">
+          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="0.6">
+            <circle cx="28" cy="28" r="20" />
+            <path d="M28 12v16l10 6" stroke-linecap="round" />
+            <circle cx="28" cy="28" r="2" fill="currentColor" />
+          </svg>
+        </div>
+        <div class="guarantee-num">I</div>
+        <h3>Termin-Garantie</h3>
+        <p class="guarantee-emph">Ihre Zeit ist kostbar.</p>
+        <p>Daher legen wir großen Wert auf die Einhaltung des vereinbarten Zeitplans. Mit bewährten Prozessen und effizienter Koordination garantieren wir eine zügige und termingerechte Fertigstellung Ihres Projekts.</p>
+      </div>
+
+      <div class="guarantee reveal reveal-d1">
+        <div class="guarantee-icon">
+          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="0.6">
+            <rect x="8" y="14" width="40" height="28" rx="2" />
+            <circle cx="28" cy="28" r="6" />
+            <path d="M28 22v12M22 28h12" stroke-linecap="round" />
+            <circle cx="14" cy="20" r="1" fill="currentColor" />
+            <circle cx="42" cy="36" r="1" fill="currentColor" />
+          </svg>
+        </div>
+        <div class="guarantee-num">II</div>
+        <h3>Budget-Sicherheit</h3>
+        <p class="guarantee-emph">Transparente Kostenkontrolle.</p>
+        <p>Transparente Kostenaufstellung und striktes Budgetmanagement bilden die Grundsteine unserer Arbeit. Wir setzen uns dafür ein, Ihr Budget sorgfältig einzuhalten und durch kreative und effektive Lösungen eine wirtschaftliche Realisierung Ihres Projekts sicherzustellen.</p>
       </div>
     </div>
+
+    <p class="guarantees-foot reveal reveal-d2">
+      <span class="guarantees-foot-mark"></span>
+      Wir arbeiten ausschließlich mit geprüften, regionalen Fachbetrieben aus
+      Vorarlberg und Umgebung — vom ersten Aushub bis zur Schlüsselübergabe.
+    </p>
   </div>
 </section>
 
@@ -1441,10 +1776,12 @@ img, video { max-width: 100%; display: block; }
     <div class="section-head">
       <div>
         <div class="section-label reveal">Leistungsspektrum</div>
-        <h2 class="section-title reveal reveal-d1">Vier Disziplinen.<br /><em>Eine Handschrift.</em></h2>
+        <h2 class="section-title reveal reveal-d1">Spezialist für<br /><em>Bauvorhaben.</em></h2>
       </div>
       <p class="section-lead reveal reveal-d2">
-        Als Generalunternehmer übernehmen wir die gesamte Projektkoordination — von der ersten Idee bis zur termingerechten Fertigstellung. Jede Disziplin folgt demselben Anspruch: Präzision, Qualität, Vertrauen.
+        Von der Revitalisierung historischer Bauten über moderne Neubauten
+        bis hin zu anspruchsvollen Umbauprojekten. Spezialisierte Bauleistungen
+        werden dabei durch entsprechend qualifizierte, regionale Fachbetriebe umgesetzt.
       </p>
     </div>
 
@@ -1469,7 +1806,7 @@ img, video { max-width: 100%; display: block; }
           <svg viewBox="0 0 56 56"><rect x="10" y="14" width="36" height="32" /><path d="M10 26h36M22 14v32M22 26h12v12" /><path d="M14 14l8-8h28l-4 8" /></svg>
         </div>
         <h3>Umbau</h3>
-        <p>Bestand denken neu. Strukturelle Anpassungen, Aufstockungen, Zubauten — mit Respekt vor dem Vorhandenen und Klarheit für das Kommende.</p>
+        <p>Den Bestand neu denken. Strukturelle Anpassungen, Aufstockungen und Zubauten — mit Respekt vor der Substanz und Klarheit in der Umsetzung.</p>
         <div class="service-tags">
           <span class="service-tag">Aufstockung</span>
           <span class="service-tag">Zubau</span>
@@ -1503,6 +1840,52 @@ img, video { max-width: 100%; display: block; }
           <span class="service-tag">Holzhaus</span>
           <span class="service-tag">Nachhaltig</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINZIPIEN (5 Hizmet Prensibi - Mamer'ın orijinali) -->
+<section class="section principles">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-label reveal">Unsere Werte</div>
+        <h2 class="section-title reveal reveal-d1">Fünf Prinzipien.<br /><em>Eine Verpflichtung.</em></h2>
+      </div>
+      <p class="section-lead reveal reveal-d2">
+        Entdecken Sie unsere vielfältige Palette an Dienstleistungen, die darauf
+        ausgerichtet sind, all Ihre individuellen Bedürfnisse und Anforderungen
+        bestmöglich zu erfüllen.
+      </p>
+    </div>
+
+    <div class="principles-grid">
+      <div class="principle reveal">
+        <div class="principle-num">01</div>
+        <h3>Projektberatung + Management</h3>
+        <p>Wir starten jedes Projekt mit einer detaillierten Aufnahme Ihrer Vision, um Ihre Wünsche maßgerecht umzusetzen. Unser Team arbeitet eng mit Ihnen zusammen, um jeden Aspekt Ihres Projektes zu prüfen und zu koordinieren, wobei Ihre Anforderungen stets im Vordergrund stehen.</p>
+      </div>
+      <div class="principle reveal reveal-d1">
+        <div class="principle-num">02</div>
+        <h3>Koordination</h3>
+        <p>Ein reibungsloser Ablauf erfordert eine sorgfältige Abstimmung aller Gewerke. Wir übernehmen die Koordination der beteiligten Unternehmen und Fachkräfte, um eine harmonische und zielgerichtete Zusammenarbeit zu sichern.</p>
+      </div>
+      <div class="principle reveal reveal-d2">
+        <div class="principle-num">03</div>
+        <h3>Nachhaltigkeit</h3>
+        <p>Nachhaltige Materialbeschaffung ist ein zentrales Anliegen, daher wählen wir Materialien und Ressourcen sorgfältig aus, um nicht nur die Umwelt zu schonen, sondern auch langfristige Wertbeständigkeit in Ihr Bauwerk zu bringen.</p>
+      </div>
+      <div class="principle reveal reveal-d3">
+        <div class="principle-num">04</div>
+        <h3>Termintreue</h3>
+        <p class="principle-emph">Ihre Zeit ist kostbar!</p>
+        <p>Daher legen wir großen Wert auf die Einhaltung des vereinbarten Zeitplans. Mit bewährten Prozessen und effizienter Koordination garantieren wir eine zügige und termingerechte Fertigstellung Ihres Projekts.</p>
+      </div>
+      <div class="principle reveal reveal-d4">
+        <div class="principle-num">05</div>
+        <h3>Kostenmanagement</h3>
+        <p>Transparente Kostenaufstellung und striktes Budgetmanagement bilden die Grundsteine unserer Arbeit. Wir setzen uns dafür ein, Ihr Budget sorgfältig einzuhalten und durch kreative und effektive Lösungen eine wirtschaftliche Realisierung Ihres Projekts sicherzustellen.</p>
       </div>
     </div>
   </div>
@@ -1544,20 +1927,38 @@ img, video { max-width: 100%; display: block; }
     </div>
     <div class="portfolio-grid">
       <div class="portfolio-item reveal">
-        <div class="portfolio-visual" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80');"></div>
-        <div class="portfolio-meta"><div><h4>Aufstockung Hofacker</h4><p>Zubau · 2024</p></div><span class="portfolio-meta-tag">Holzbau</span></div>
+        <div class="portfolio-visual" style="background-image: url('https://www.cm-bau.at/images/Ansicht-1---nacher_1.avif');"></div>
+        <div class="portfolio-meta"><div><h4>Aufstockung</h4><p>Vorher · Nachher</p></div><span class="portfolio-meta-tag">Aufstockung</span></div>
       </div>
       <div class="portfolio-item reveal reveal-d1">
-        <div class="portfolio-visual" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80');"></div>
-        <div class="portfolio-meta"><div><h4>Villa Özgün</h4><p>Neubau · 2024</p></div><span class="portfolio-meta-tag">Schlüsselfertig</span></div>
+        <div class="portfolio-visual" style="background-image: url('https://www.cm-bau.at/images/Hofacker-2-Umbau.avif');"></div>
+        <div class="portfolio-meta"><div><h4>Hofacker</h4><p>Zubau · Umbau</p></div><span class="portfolio-meta-tag">Zubau</span></div>
       </div>
       <div class="portfolio-item reveal reveal-d2">
-        <div class="portfolio-visual" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&q=80');"></div>
-        <div class="portfolio-meta"><div><h4>Sanierung Spiegel</h4><p>Bestandserneuerung · 2023</p></div><span class="portfolio-meta-tag">Sanierung</span></div>
+        <div class="portfolio-visual" style="background-image: url('https://www.cm-bau.at/images/Oezguen-2_1.avif');"></div>
+        <div class="portfolio-meta"><div><h4>Özgün</h4><p>Schlüsselfertig</p></div><span class="portfolio-meta-tag">Neubau</span></div>
       </div>
       <div class="portfolio-item reveal reveal-d3">
-        <div class="portfolio-visual" style="background-image: url('https://images.unsplash.com/photo-1564540583246-934409427776?w=1200&q=80');"></div>
-        <div class="portfolio-meta"><div><h4>Wohnbau Ansicht 1</h4><p>Mehrfamilienhaus · 2024</p></div><span class="portfolio-meta-tag">Neubau</span></div>
+        <div class="portfolio-visual" style="background-image: url('https://www.cm-bau.at/images/Spiegel_1.avif');"></div>
+        <div class="portfolio-meta"><div><h4>Spiegel</h4><p>Bestandserneuerung</p></div><span class="portfolio-meta-tag">Sanierung</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WERTE: Engagement + Vertrauen (Mamer'ın orijinal değer prensipleri) -->
+<section class="section werte">
+  <div class="section-inner">
+    <div class="werte-grid">
+      <div class="werte-card reveal">
+        <div class="werte-num">I</div>
+        <h3>Engagement</h3>
+        <p>Höchste Qualitätsstandards und eine kundenorientierte Herangehensweise zeichnen unsere Arbeit aus.</p>
+      </div>
+      <div class="werte-card reveal reveal-d1">
+        <div class="werte-num">II</div>
+        <h3>Vertrauen</h3>
+        <p>Zählen auf unser professionelles Team, das Ihr Bauprojekt mit Sorgfalt und fachlicher Kompetenz zum Erfolg führt.</p>
       </div>
     </div>
   </div>
@@ -1566,19 +1967,49 @@ img, video { max-width: 100%; display: block; }
 <!-- ABOUT -->
 <section class="section about">
   <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-label reveal">Geschäftsführung</div>
+        <h2 class="section-title reveal reveal-d1">Die Köpfe<br /><em>hinter CM.</em></h2>
+      </div>
+      <p class="section-lead reveal reveal-d2">
+        Wir verstehen die Einzigartigkeit jedes Projektes und bieten daher
+        maßgeschneiderte Lösungen, die präzise auf unsere Kunden abgestimmt
+        werden.
+      </p>
+    </div>
+
     <div class="about-grid">
       <div class="about-portrait reveal"></div>
       <div>
-        <div class="section-label reveal">Geschäftsführung</div>
         <p class="about-quote reveal reveal-d1">Ich baue nicht nur Gebäude — ich gestalte Werte.</p>
         <p class="about-bio reveal reveal-d2">
-          Mit Wurzeln im Holzbau und über 15 Jahren Erfahrung in der Baupraxis stehe ich für präzise Planung, klare Struktur und echte Handschlagqualität. CM verbindet traditionelles Handwerk mit moderner Baukompetenz und entwickelt daraus durchdachte, strukturierte Bauprozesse — für Projekte, die Bestand haben und Vertrauen schaffen.
+          Mit Wurzeln im Holzbau und über 15 Jahren Erfahrung in der Baupraxis stehe ich für präzise Planung, klare Struktur und echte Handschlagqualität. Ich verbinde traditionelles Handwerk mit moderner Baukompetenz und entwickle daraus durchdachte, strukturierte Bauprozesse — für Projekte, die Bestand haben und Vertrauen schaffen.
         </p>
-        <div class="about-attribution reveal reveal-d3">
-          <div class="about-attribution-line"></div>
-          <div>
-            <div class="about-attribution-name">Mamer Ceylan</div>
-            <div class="about-attribution-role">CEO & Gründer · CM Baumanagement</div>
+
+        <div class="about-team reveal reveal-d3">
+          <div class="about-attribution">
+            <div class="about-attribution-line"></div>
+            <div>
+              <div class="about-attribution-name">Mamer Ceylan</div>
+              <div class="about-attribution-role">CEO & Founder</div>
+              <div class="about-attribution-contact">
+                <a href="tel:+436769408534">+43 676 940 85 34</a>
+                · <a href="mailto:m.ceylan@cm-bau.at">m.ceylan@cm-bau.at</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-attribution">
+            <div class="about-attribution-line"></div>
+            <div>
+              <div class="about-attribution-name">Ing. Abdurrahman Türkyilmaz</div>
+              <div class="about-attribution-role">Projektleiter</div>
+              <div class="about-attribution-contact">
+                <a href="tel:+436765102339">+43 676 510 23 39</a>
+                · <a href="mailto:a.tuerkyilmaz@cm-bau.at">a.tuerkyilmaz@cm-bau.at</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1589,8 +2020,11 @@ img, video { max-width: 100%; display: block; }
 <!-- CTA STRIP -->
 <section class="cta-strip">
   <div class="cta-strip-inner">
-    <h2 class="cta-headline reveal">Bereit für ein Bauvorhaben<br /><em>auf höchstem Niveau?</em></h2>
-    <div class="cta-actions reveal reveal-d1">
+    <div>
+      <div class="cta-overline reveal">Präzision · Effizienz · CM</div>
+      <h2 class="cta-headline reveal reveal-d1">Bereit für ein Bauvorhaben<br /><em>auf höchstem Niveau?</em></h2>
+    </div>
+    <div class="cta-actions reveal reveal-d2">
       <a href="#kontakt" class="btn-primary">
         <span>Termin vereinbaren</span>
         <svg width="18" height="10" viewBox="0 0 18 10" fill="none"><path d="M1 5h16M13 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" /></svg>
@@ -1608,7 +2042,7 @@ img, video { max-width: 100%; display: block; }
       <h2 class="section-title reveal reveal-d1" style="margin-bottom: 2.5rem;">Wir sind<br /><em>für Sie da.</em></h2>
       <div class="contact-info-block reveal reveal-d2">
         <div class="contact-info-label">Standort</div>
-        <div class="contact-info-value">Im Kratta 2, 6800 Feldkirch<span class="secondary">Vorarlberg, Österreich</span></div>
+        <div class="contact-info-value">Im Kratta 2, 6800 Feldkirch, AT<span class="secondary">Vorarlberg, Österreich</span></div>
       </div>
       <div class="contact-info-block reveal reveal-d2">
         <div class="contact-info-label">Büro</div>
@@ -1642,8 +2076,14 @@ img, video { max-width: 100%; display: block; }
       <div class="field">
         <label for="anliegen">Ihr Anliegen</label>
         <select id="anliegen">
-          <option>Auswahl …</option><option>Neubau</option><option>Umbau</option>
-          <option>Sanierung</option><option>Holzbau</option><option>Sonstiges</option>
+          <option>Auswahl …</option>
+          <option>Neubau</option>
+          <option>Altbau</option>
+          <option>Umbau</option>
+          <option>Sanierung</option>
+          <option>Holzbau</option>
+          <option>Ausführung</option>
+          <option>Sonstiges</option>
         </select>
       </div>
       <div class="field">
@@ -1652,6 +2092,11 @@ img, video { max-width: 100%; display: block; }
           <div class="field-radio"><input type="radio" name="ch" id="ch1" checked /><label for="ch1">Rückruf</label></div>
           <div class="field-radio"><input type="radio" name="ch" id="ch2" /><label for="ch2">E-Mail</label></div>
           <div class="field-radio"><input type="radio" name="ch" id="ch3" /><label for="ch3">WhatsApp</label></div>
+          <div class="field-radio field-radio-easter"><input type="radio" name="ch" id="ch4" /><label for="ch4" id="brieftaubeLabel">Brieftaube</label></div>
+        </div>
+        <div class="brieftaube-msg" id="brieftaubeMsg">
+          Leider sind alle unsere Tauben im Einsatz. Versuche es doch über
+          einen anderen Kanal&nbsp;<span style="color:var(--copper);">(:</span>
         </div>
       </div>
       <div class="field">
@@ -1680,7 +2125,7 @@ img, video { max-width: 100%; display: block; }
       </div>
       <div class="footer-col">
         <h5>Kontakt</h5>
-        <ul><li><a href="tel:+4355229308">+43 5522 93 0 87</a></li><li><a href="mailto:office@cm-bau.at">office@cm-bau.at</a></li><li>Im Kratta 2, 6800 Feldkirch</li></ul>
+        <ul><li><a href="tel:+4355229308">+43 5522 93 0 87</a></li><li><a href="mailto:office@cm-bau.at">office@cm-bau.at</a></li><li>Im Kratta 2, 6800 Feldkirch, AT</li></ul>
       </div>
       <div class="footer-col">
         <h5>Disziplinen</h5>
@@ -1790,6 +2235,24 @@ const counterObserver=new IntersectionObserver(entries=>{
   });
 },{threshold:0.5});
 document.querySelectorAll('[data-counter]').forEach(el=>counterObserver.observe(el));
+
+// BRIEFTAUBE EASTER EGG
+const brieftaubeLabel = document.getElementById('brieftaubeLabel');
+const brieftaubeMsg = document.getElementById('brieftaubeMsg');
+const brieftaubeInput = document.getElementById('ch4');
+if (brieftaubeLabel && brieftaubeMsg) {
+  brieftaubeLabel.addEventListener('mouseenter', () => {
+    brieftaubeMsg.classList.add('is-visible');
+  });
+  brieftaubeLabel.addEventListener('click', () => {
+    brieftaubeMsg.classList.add('is-visible');
+    setTimeout(() => {
+      if (brieftaubeInput && brieftaubeInput.checked) {
+        document.getElementById('ch1').checked = true;
+      }
+    }, 50);
+  });
+}
 
 // HERO ENTRANCE
 window.addEventListener('load',()=>{
