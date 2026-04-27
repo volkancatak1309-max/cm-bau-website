@@ -292,10 +292,6 @@ img, video { max-width: 100%; display: block; }
 .hero-media video.is-ready { opacity: 1; }
 .hero-media.video-loaded img { opacity: 0; }
 
-/* Hide video on slow mobile, keep poster image */
-@media (max-width: 768px) {
-  .hero-media video { display: none; }
-}
 
 .hero-overlay {
   position: absolute; inset: 0; z-index: 3; pointer-events: none;
@@ -1749,10 +1745,10 @@ document.querySelectorAll('[data-mm-link]').forEach(link => {
   });
 });
 
-// VIDEO (desktop only loads, mobile shows poster)
+// VIDEO (loads on all devices)
 const heroMedia=document.getElementById('heroMedia');
 const heroVideo=document.getElementById('heroVideo');
-if (heroVideo && window.innerWidth >= 768) {
+if (heroVideo) {
   function onVideoReady(){heroVideo.classList.add('is-ready');heroMedia.classList.add('video-loaded');}
   if(heroVideo.readyState>=3){onVideoReady();}else{
     heroVideo.addEventListener('canplay',onVideoReady,{once:true});
