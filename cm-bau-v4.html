@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CM Baumanagement — Wo Handwerk Architektur wird.</title>
+<meta name="description" content="Generalunternehmer in Vorarlberg. Neubau, Umbau, Sanierung und Holzbau auf höchstem Niveau. Mamer Ceylan, Feldkirch." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Manrope:wght@300..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<link rel="preload" as="image" href="https://raw.githubusercontent.com/volkancatak1309-max/premium-3d-assets/main/projects/cm-bau/Wooden_house_frame_202604271623.jpeg" />
+<link rel="preload" as="video" type="video/mp4" href="https://raw.githubusercontent.com/volkancatak1309-max/premium-3d-assets/main/projects/cm-bau/Dust_particles_in_202604271624.mp4" />
+
+<style>
+:root {
+  --bg-void: #050506;
+  --bg-base: #0a0a0c;
+  --bg-elevated: #111114;
+  --bg-card: #16161b;
+  --line-soft: rgba(245, 241, 234, 0.06);
+  --line-strong: rgba(245, 241, 234, 0.14);
+  --copper: #c89669;
+  --copper-bright: #e8b384;
+  --copper-deep: #8a6444;
+  --ivory: #f5f1ea;
+  --ivory-dim: #c9c2b6;
+  --steel: #6f7480;
+  --shadow: #2c2620;
+  --font-display: "Fraunces", serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --max-w: 1440px;
+  --pad: clamp(1.5rem, 4vw, 4rem);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  background: var(--bg-base); color: var(--ivory);
+  font-family: var(--font-body); font-weight: 400;
+  font-size: 16px; line-height: 1.6;
+  overflow-x: hidden; cursor: none;
+  -webkit-font-smoothing: antialiased;
+}
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  .cursor, .cursor-dot { display: none !important; }
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: none; border: 0; background: none; color: inherit; }
+img, video { max-width: 100%; display: block; }
+
+/* ─── CURSOR ───────────────────────────────────────────── */
+.cursor {
+  position: fixed; top: 0; left: 0;
+  width: 36px; height: 36px;
+  border: 1px solid var(--copper);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out);
+  z-index: 9999; mix-blend-mode: difference;
+}
+.cursor-dot {
+  position: fixed; top: 0; left: 0;
+  width: 4px; height: 4px;
+  background: var(--copper-bright); border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+.cursor.is-hover { width: 64px; height: 64px; background: rgba(200, 150, 105, 0.08); }
+
+/* ─── LOADER ───────────────────────────────────────────── */
+.loader {
+  position: fixed; inset: 0;
+  background: var(--bg-void); z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 1.2s var(--ease-out), visibility 1.2s;
+}
+.loader.is-hidden { opacity: 0; visibility: hidden; }
+.loader-mark {
+  font-family: var(--font-display); font-weight: 200;
+  font-size: clamp(4rem, 12vw, 8rem);
+  letter-spacing: -0.05em;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  text-align: center;
+}
+.loader-mark em { font-style: italic; color: var(--copper); }
+.loader-bar {
+  margin-top: 2rem; width: 240px; height: 1px;
+  background: var(--line-soft); position: relative; overflow: hidden;
+}
+.loader-bar::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--copper);
+  transform: scaleX(0); transform-origin: left;
+  animation: load 2.4s var(--ease-out) forwards;
+}
+.loader-label {
+  margin-top: 1rem; font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--steel);
+  text-align: center;
+}
+@keyframes load { to { transform: scaleX(1); } }
+
+/* ─── NAV ──────────────────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100; padding: 1.5rem var(--pad);
+  display: flex; align-items: center; justify-content: space-between;
+  transition: padding 0.4s var(--ease-out), background 0.4s, backdrop-filter 0.4s;
+}
+.nav.is-scrolled {
+  padding: 0.85rem var(--pad);
+  background: rgba(10, 10, 12, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.nav-mark {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: 1.5rem; letter-spacing: -0.02em;
+  display: flex; align-items: baseline; gap: 0.4rem;
+}
+.nav-mark span { color: var(--copper); }
+.nav-mark .mark-sub {
+  font-family: var(--font-mono); font-size: 0.55rem;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--steel); margin-left: 0.5rem;
+}
+.nav-links {
+  display: flex; gap: 2.5rem; list-style: none; align-items: center;
+}
+.nav-links a {
+  font-size: 0.85rem; font-weight: 500;
+  letter-spacing: 0.04em;
+  position: relative; padding: 0.5rem 0;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: ""; position: absolute; left: 0; bottom: 0;
+  width: 0; height: 1px;
+  background: var(--copper);
+  transition: width 0.3s var(--ease-out);
+}
+.nav-links a:hover { color: var(--copper-bright); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.85rem 1.5rem;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  transition: all 0.4s var(--ease-out);
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: rgba(10, 10, 12, 0.4); backdrop-filter: blur(8px);
+}
+.nav-cta:hover {
+  background: var(--copper); border-color: var(--copper); color: var(--bg-void);
+}
+.nav-cta::before {
+  content: ""; width: 6px; height: 6px;
+  background: var(--copper); border-radius: 50%;
+  transition: background 0.3s;
+}
+.nav-cta:hover::before { background: var(--bg-void); }
+@media (max-width: 900px) { .nav-links, .nav-cta { display: none; } }
+
+/* ─── HERO ─────────────────────────────────────────────── */
+.hero {
+  position: relative; min-height: 100vh; min-height: 100svh;
+  display: flex; align-items: center;
+  padding: 0 var(--pad); overflow: hidden; isolation: isolate;
+}
+.hero-media {
+  position: absolute; inset: 0; z-index: 1; overflow: hidden;
+}
+.hero-media video, .hero-media img {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+}
+.hero-media img { z-index: 1; transition: opacity 0.8s ease-out; }
+.hero-media video { z-index: 2; opacity: 0; transition: opacity 1.2s ease-out; }
+.hero-media video.is-ready { opacity: 1; }
+.hero-media.video-loaded img { opacity: 0; }
+
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(5,5,6,0.55) 0%, rgba(5,5,6,0.15) 25%, transparent 45%),
+    linear-gradient(180deg, transparent 40%, rgba(5,5,6,0.4) 70%, rgba(5,5,6,0.92) 100%),
+    linear-gradient(90deg, rgba(5,5,6,0.5) 0%, rgba(5,5,6,0.15) 35%, transparent 60%),
+    radial-gradient(ellipse at center, transparent 35%, rgba(5,5,6,0.4) 100%);
+}
+.hero-grain {
+  position: absolute; inset: 0; z-index: 4;
+  pointer-events: none; opacity: 0.06; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+}
+.hero-scanlines {
+  position: absolute; inset: 0; z-index: 5;
+  pointer-events: none; mix-blend-mode: multiply;
+  background: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 3px);
+}
+.hero-content {
+  position: relative; z-index: 10;
+  width: 100%; max-width: var(--max-w); margin: 0 auto;
+  display: grid; grid-template-columns: 1.4fr 1fr;
+  gap: 3rem; align-items: end;
+  padding: 8rem 0 5rem;
+}
+.hero-overline {
+  display: flex; align-items: center; gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--ivory-dim);
+  margin-bottom: 2.5rem; opacity: 0;
+  transition: opacity 0.8s 0.1s;
+}
+.hero-overline .line {
+  width: 60px; height: 1px;
+  background: var(--copper);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 1.2s var(--ease-out) 0.2s;
+}
+.hero-overline.is-visible { opacity: 1; }
+.hero-overline.is-visible .line { transform: scaleX(1); }
+.hero-title {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(3.2rem, 9vw, 8.5rem);
+  line-height: 0.92; letter-spacing: -0.045em;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+.hero-title .line { display: block; overflow: hidden; }
+.hero-title .line > span {
+  display: inline-block; transform: translateY(110%);
+  transition: transform 1.4s var(--ease-out);
+}
+.hero-title.is-visible .line > span { transform: translateY(0); }
+.hero-title .line:nth-child(2) > span { transition-delay: 0.18s; }
+.hero-title .line:nth-child(3) > span { transition-delay: 0.36s; }
+.hero-title em {
+  font-style: italic; color: var(--copper-bright);
+  font-weight: 400; font-variation-settings: "opsz" 144, "SOFT" 90;
+}
+.hero-title .accent-mark {
+  display: inline-block; width: 0.18em; height: 0.18em;
+  background: var(--copper); border-radius: 50%;
+  vertical-align: middle; margin-bottom: 0.2em;
+}
+.hero-sub {
+  margin-top: 2.5rem; max-width: 480px;
+  font-size: 1.1rem; line-height: 1.65;
+  color: var(--ivory); font-weight: 300;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 1s var(--ease-out) 0.7s, transform 1s var(--ease-out) 0.7s;
+}
+.hero-sub.is-visible { opacity: 1; transform: translateY(0); }
+.hero-actions {
+  margin-top: 3rem; display: flex; gap: 1.5rem;
+  align-items: center; flex-wrap: wrap;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 1s var(--ease-out) 0.9s, transform 1s var(--ease-out) 0.9s;
+}
+.hero-actions.is-visible { opacity: 1; transform: translateY(0); }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  padding: 1.15rem 2.2rem;
+  background: var(--copper); color: var(--bg-void);
+  font-family: var(--font-mono); font-size: 0.75rem;
+  letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+  border-radius: 999px;
+  transition: all 0.4s var(--ease-out);
+  position: relative; overflow: hidden;
+  box-shadow: 0 8px 30px rgba(200, 150, 105, 0.25);
+}
+.btn-primary::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--copper-bright);
+  transform: translateY(101%);
+  transition: transform 0.4s var(--ease-out);
+}
+.btn-primary span { position: relative; z-index: 1; }
+.btn-primary:hover::before { transform: translateY(0); }
+.btn-primary svg { position: relative; z-index: 1; transition: transform 0.4s; }
+.btn-primary:hover svg { transform: translateX(4px); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  padding: 1.15rem 0;
+  font-family: var(--font-mono); font-size: 0.75rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+.btn-ghost::before { content: "→"; transition: transform 0.3s; }
+.btn-ghost:hover { color: var(--copper-bright); }
+.btn-ghost:hover::before { transform: translateX(4px); }
+
+.hero-spec-wrap {
+  display: flex; align-items: end; justify-content: flex-end; height: 100%;
+}
+.hero-spec {
+  width: 320px; padding: 1.75rem;
+  border: 1px solid rgba(245, 241, 234, 0.12);
+  background: rgba(15, 15, 18, 0.55);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border-radius: 6px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 1.2s var(--ease-out) 1.1s, transform 1.2s var(--ease-out) 1.1s;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+.hero-spec.is-visible { opacity: 1; transform: translateY(0); }
+.hero-spec-label {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.3em; text-transform: uppercase; color: var(--ivory-dim);
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.hero-spec-label::before {
+  content: ""; width: 6px; height: 6px;
+  background: var(--copper); border-radius: 50%;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+.hero-spec-row {
+  display: flex; justify-content: space-between;
+  padding: 0.7rem 0;
+  border-bottom: 1px dashed rgba(245, 241, 234, 0.1);
+  font-size: 0.85rem;
+}
+.hero-spec-row:last-child { border-bottom: 0; }
+.hero-spec-row span:first-child { color: var(--ivory-dim); }
+.hero-spec-row span:last-child {
+  color: var(--copper-bright);
+  font-family: var(--font-mono); font-size: 0.78rem;
+}
+
+.scroll-indicator {
+  position: absolute; bottom: 2rem; left: 50%;
+  transform: translateX(-50%); z-index: 10;
+  display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--ivory-dim);
+  opacity: 0; transition: opacity 1s 1.5s;
+}
+.scroll-indicator.is-visible { opacity: 1; }
+.scroll-indicator-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(180deg, transparent, var(--copper));
+  position: relative; overflow: hidden;
+}
+.scroll-indicator-line::before {
+  content: ""; position: absolute;
+  top: -100%; left: 0;
+  width: 100%; height: 100%;
+  background: var(--copper-bright);
+  animation: scrollDown 2.5s ease-in-out infinite;
+}
+@keyframes scrollDown {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+@media (max-width: 900px) {
+  .hero-content { grid-template-columns: 1fr; gap: 2rem; padding: 8rem 0 6rem; align-items: end; }
+  .hero-spec-wrap { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION FRAMEWORK
+   ═══════════════════════════════════════════════════════════ */
+.section {
+  padding: 8rem var(--pad);
+  position: relative;
+}
+.section-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--copper);
+  margin-bottom: 1.5rem;
+  display: inline-flex; align-items: center; gap: 0.8rem;
+}
+.section-label::before {
+  content: ""; width: 6px; height: 6px;
+  border: 1px solid var(--copper);
+  transform: rotate(45deg);
+}
+.section-title {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  line-height: 1.05; letter-spacing: -0.03em;
+  font-variation-settings: "opsz" 144, "SOFT" 40;
+  max-width: 14ch;
+}
+.section-title em {
+  font-style: italic; color: var(--copper); font-weight: 400;
+}
+.section-lead {
+  margin-top: 1.5rem;
+  font-size: 1.1rem; line-height: 1.65;
+  color: var(--ivory-dim); font-weight: 300;
+  max-width: 56ch;
+}
+.section-head {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; margin-bottom: 5rem; align-items: end;
+}
+@media (max-width: 900px) {
+  .section-head { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STATS RIBBON
+   ═══════════════════════════════════════════════════════════ */
+.stats {
+  background: var(--bg-void);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  padding: 4rem var(--pad);
+}
+.stats-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--line-soft);
+}
+.stat {
+  background: var(--bg-void); padding: 2rem;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: -0.03em; color: var(--ivory);
+  font-variation-settings: "opsz" 144;
+  line-height: 1; margin-bottom: 0.5rem;
+}
+.stat-num em {
+  color: var(--copper); font-style: normal;
+  font-size: 0.5em; vertical-align: super;
+}
+.stat-label {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--steel);
+}
+@media (max-width: 768px) { .stats-inner { grid-template-columns: repeat(2, 1fr); } }
+
+/* ═══════════════════════════════════════════════════════════
+   PHILOSOPHY · "C&M"
+   ═══════════════════════════════════════════════════════════ */
+.philosophy {
+  background: var(--bg-base);
+  position: relative; overflow: hidden;
+}
+.philosophy::before {
+  content: ""; position: absolute;
+  top: 50%; left: -10%; width: 80%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--copper-deep), transparent);
+  opacity: 0.4;
+}
+.cm-mark {
+  font-family: var(--font-display); font-weight: 200;
+  font-size: clamp(8rem, 24vw, 22rem);
+  line-height: 0.85; letter-spacing: -0.06em;
+  color: var(--ivory);
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  position: relative; display: inline-block;
+}
+.cm-mark em {
+  font-style: italic; color: var(--copper);
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+}
+.cm-mark .ampersand {
+  font-style: italic; color: var(--copper);
+  font-weight: 300; margin: 0 -0.05em;
+}
+.philosophy-meaning {
+  margin-top: 3rem;
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 4rem; max-width: 800px;
+}
+.philosophy-pair {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 1.5rem;
+}
+.philosophy-pair h4 {
+  font-family: var(--font-display); font-weight: 400;
+  font-style: italic; font-size: 1.6rem;
+  color: var(--copper); margin-bottom: 0.5rem;
+}
+.philosophy-pair p {
+  color: var(--ivory-dim); font-size: 0.95rem;
+  line-height: 1.6;
+}
+@media (max-width: 768px) {
+  .philosophy-meaning { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SERVICES
+   ═══════════════════════════════════════════════════════════ */
+.services {
+  background: var(--bg-void);
+  border-top: 1px solid var(--line-soft);
+}
+.services-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--line-soft);
+  border: 1px solid var(--line-soft);
+}
+.service {
+  background: var(--bg-void); padding: 3rem;
+  position: relative; overflow: hidden;
+  transition: background 0.5s;
+}
+.service:hover { background: var(--bg-elevated); }
+.service::after {
+  content: ""; position: absolute;
+  top: 0; left: 0; width: 100%; height: 1px;
+  background: var(--copper);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.6s var(--ease-out);
+}
+.service:hover::after { transform: scaleX(1); }
+.service-num {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  letter-spacing: 0.3em; color: var(--steel);
+  margin-bottom: 2rem;
+}
+.service-icon {
+  width: 56px; height: 56px;
+  margin-bottom: 1.5rem; position: relative;
+}
+.service-icon svg {
+  width: 100%; height: 100%;
+  stroke: var(--copper); fill: none; stroke-width: 0.5;
+  transition: transform 0.6s var(--ease-out), stroke 0.4s;
+}
+.service:hover .service-icon svg {
+  transform: rotate(15deg); stroke: var(--copper-bright);
+}
+.service h3 {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  letter-spacing: -0.02em; color: var(--ivory);
+  margin-bottom: 1rem;
+  font-variation-settings: "opsz" 144;
+}
+.service p {
+  color: var(--ivory-dim); font-size: 0.95rem;
+  line-height: 1.65; margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+.service-tags {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+}
+.service-tag {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--line-strong); border-radius: 2px;
+  color: var(--ivory-dim);
+}
+@media (max-width: 768px) {
+  .services-grid { grid-template-columns: 1fr; }
+  .service { padding: 2rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PROCESS
+   ═══════════════════════════════════════════════════════════ */
+.process { background: var(--bg-base); }
+.process-track {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 1rem; position: relative; padding-top: 3rem;
+}
+.process-track::before {
+  content: ""; position: absolute;
+  top: 3rem; left: 5%; right: 5%;
+  height: 1px; background: var(--line-strong);
+}
+.process-track::after {
+  content: ""; position: absolute;
+  top: 3rem; left: 5%; width: 0; height: 1px;
+  background: var(--copper);
+  transition: width 1.8s var(--ease-out);
+}
+.process-track.is-visible::after { width: 90%; }
+.process-step {
+  text-align: center; position: relative; padding-top: 1.5rem;
+}
+.process-step::before {
+  content: ""; position: absolute;
+  top: -1.5rem; left: 50%;
+  transform: translateX(-50%);
+  width: 12px; height: 12px;
+  background: var(--bg-base);
+  border: 1px solid var(--copper);
+  border-radius: 50%; z-index: 2;
+  transition: all 0.4s;
+}
+.process-step:hover::before {
+  background: var(--copper);
+  box-shadow: 0 0 0 8px rgba(200, 150, 105, 0.15);
+}
+.process-step-num {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.3em; color: var(--copper);
+  margin-bottom: 0.5rem;
+}
+.process-step h4 {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: 1.15rem; color: var(--ivory);
+  margin-bottom: 0.5rem;
+}
+.process-step p {
+  font-size: 0.85rem; color: var(--ivory-dim);
+  line-height: 1.55; font-weight: 300;
+}
+@media (max-width: 900px) {
+  .process-track { grid-template-columns: 1fr; padding-top: 0; }
+  .process-track::before, .process-track::after { display: none; }
+  .process-step {
+    text-align: left;
+    padding: 1.5rem 0 1.5rem 2rem;
+    border-left: 1px solid var(--line-strong);
+  }
+  .process-step::before { top: 1.5rem; left: -6px; transform: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PORTFOLIO
+   ═══════════════════════════════════════════════════════════ */
+.portfolio {
+  background: var(--bg-void);
+  border-top: 1px solid var(--line-soft);
+}
+.portfolio-grid {
+  display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem;
+}
+.portfolio-item {
+  position: relative; overflow: hidden;
+  border-radius: 4px; cursor: none;
+  background: var(--bg-elevated);
+}
+.portfolio-item:nth-child(1) { grid-column: span 7; aspect-ratio: 16/10; }
+.portfolio-item:nth-child(2) { grid-column: span 5; aspect-ratio: 4/5; }
+.portfolio-item:nth-child(3) { grid-column: span 5; aspect-ratio: 4/5; }
+.portfolio-item:nth-child(4) { grid-column: span 7; aspect-ratio: 16/10; }
+.portfolio-visual {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transition: transform 1.2s var(--ease-out);
+  filter: grayscale(40%) brightness(0.75);
+}
+.portfolio-item:hover .portfolio-visual {
+  transform: scale(1.08);
+  filter: grayscale(0%) brightness(0.9);
+}
+.portfolio-item::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(5,5,6,0.95) 100%);
+  pointer-events: none;
+}
+.portfolio-meta {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 2rem; z-index: 2;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 1rem;
+}
+.portfolio-meta h4 {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(1.3rem, 1.8vw, 1.8rem);
+  letter-spacing: -0.02em; color: var(--ivory);
+  margin-bottom: 0.3rem;
+}
+.portfolio-meta p {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--copper);
+}
+.portfolio-meta-tag {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--line-strong);
+  background: rgba(5,5,6,0.6); backdrop-filter: blur(10px);
+  border-radius: 2px; color: var(--ivory); flex-shrink: 0;
+}
+@media (max-width: 900px) {
+  .portfolio-item:nth-child(n) { grid-column: span 12; aspect-ratio: 16/10; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ABOUT
+   ═══════════════════════════════════════════════════════════ */
+.about { background: var(--bg-base); border-top: 1px solid var(--line-soft); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: 4rem; align-items: center;
+}
+.about-portrait {
+  position: relative; aspect-ratio: 4/5;
+  background: var(--bg-elevated);
+  overflow: hidden; border-radius: 4px;
+}
+.about-portrait::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: linear-gradient(135deg, var(--copper-deep) 0%, var(--shadow) 50%, var(--bg-void) 100%);
+}
+.about-portrait::after {
+  content: "M\00B7C";
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 200;
+  font-size: clamp(8rem, 12vw, 14rem);
+  letter-spacing: -0.05em;
+  color: rgba(245, 241, 234, 0.85);
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  font-style: italic;
+}
+.about-quote {
+  font-family: var(--font-display); font-weight: 300;
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.4vw, 2.4rem);
+  line-height: 1.3; letter-spacing: -0.02em;
+  color: var(--ivory);
+  font-variation-settings: "opsz" 144, "SOFT" 70;
+  margin-bottom: 2rem;
+}
+.about-quote::before {
+  content: "„"; display: inline-block;
+  color: var(--copper); font-size: 1.4em;
+  line-height: 0; margin-right: 0.05em;
+  vertical-align: -0.2em;
+}
+.about-quote::after { content: "\""; color: var(--copper); }
+.about-bio {
+  color: var(--ivory-dim); font-size: 1rem;
+  line-height: 1.7; font-weight: 300;
+  margin-bottom: 2rem; max-width: 56ch;
+}
+.about-attribution {
+  display: flex; align-items: center; gap: 1.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line-soft);
+}
+.about-attribution-name {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: 1.2rem; color: var(--ivory);
+}
+.about-attribution-role {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--copper); margin-top: 0.25rem;
+}
+.about-attribution-line {
+  width: 50px; height: 1px; background: var(--copper);
+}
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-portrait { max-width: 320px; aspect-ratio: 1/1; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CTA STRIP
+   ═══════════════════════════════════════════════════════════ */
+.cta-strip {
+  padding: 6rem var(--pad);
+  background: var(--bg-void);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+.cta-strip-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: grid; grid-template-columns: 1.4fr 1fr;
+  gap: 3rem; align-items: center;
+}
+.cta-headline {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  line-height: 1.05; letter-spacing: -0.03em;
+  color: var(--ivory);
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+}
+.cta-headline em { font-style: italic; color: var(--copper); }
+.cta-actions {
+  display: flex; gap: 1rem;
+  justify-content: flex-end; flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  .cta-strip-inner { grid-template-columns: 1fr; }
+  .cta-actions { justify-content: flex-start; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════════════════════════ */
+.contact { background: var(--bg-base); padding: 8rem var(--pad); }
+.contact-grid {
+  max-width: var(--max-w); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 5rem;
+}
+.contact-info-block {
+  border-bottom: 1px solid var(--line-soft);
+  padding: 1.5rem 0;
+  display: grid; grid-template-columns: 80px 1fr;
+  align-items: start; gap: 1.5rem;
+}
+.contact-info-block:last-of-type { border-bottom: 0; }
+.contact-info-label {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--steel); padding-top: 0.3rem;
+}
+.contact-info-value {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: 1.1rem; color: var(--ivory); line-height: 1.5;
+}
+.contact-info-value a:hover { color: var(--copper-bright); }
+.contact-info-value .secondary {
+  display: block; margin-top: 0.4rem;
+  font-family: var(--font-body); font-size: 0.85rem;
+  color: var(--ivory-dim); font-weight: 300;
+}
+.contact-form {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-soft);
+  padding: 2.5rem; border-radius: 4px;
+}
+.contact-form-title {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: 1.6rem; color: var(--ivory);
+  margin-bottom: 0.5rem;
+}
+.contact-form-sub {
+  font-size: 0.9rem; color: var(--ivory-dim);
+  margin-bottom: 2rem; font-weight: 300;
+}
+.field { margin-bottom: 1.5rem; position: relative; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.field label {
+  display: block;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--steel); margin-bottom: 0.6rem;
+}
+.field input, .field textarea, .field select {
+  width: 100%; background: transparent;
+  border: 0; border-bottom: 1px solid var(--line-strong);
+  padding: 0.6rem 0; color: var(--ivory);
+  font-family: var(--font-body); font-size: 0.95rem;
+  transition: border-color 0.3s;
+}
+.field input:focus, .field textarea:focus, .field select:focus {
+  outline: 0; border-bottom-color: var(--copper);
+}
+.field textarea { resize: vertical; min-height: 100px; }
+.field select option { background: var(--bg-elevated); color: var(--ivory); }
+.field-radio-group { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
+.field-radio { flex: 1; min-width: 110px; position: relative; }
+.field-radio input { position: absolute; opacity: 0; }
+.field-radio label {
+  display: block; text-align: center;
+  padding: 0.7rem 0.5rem;
+  border: 1px solid var(--line-strong); border-radius: 2px;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  margin: 0; cursor: none;
+  transition: all 0.3s;
+  color: var(--ivory-dim);
+}
+.field-radio input:checked + label {
+  border-color: var(--copper);
+  background: rgba(200, 150, 105, 0.1);
+  color: var(--copper-bright);
+}
+.contact-submit {
+  width: 100%; padding: 1.1rem;
+  background: var(--copper); color: var(--bg-void);
+  font-family: var(--font-mono); font-size: 0.75rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 999px;
+  transition: background 0.3s;
+  display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+}
+.contact-submit:hover { background: var(--copper-bright); }
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .contact-form { padding: 1.75rem; }
+  .field-row { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════ */
+.footer {
+  background: var(--bg-void);
+  border-top: 1px solid var(--line-soft);
+  padding: 4rem var(--pad) 2rem;
+}
+.footer-inner { max-width: var(--max-w); margin: 0 auto; }
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem; padding-bottom: 3rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.footer-mark {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: 2rem; letter-spacing: -0.03em;
+}
+.footer-mark span { color: var(--copper); }
+.footer-tagline {
+  margin-top: 1rem; color: var(--ivory-dim);
+  font-size: 0.95rem; max-width: 32ch;
+  font-weight: 300; line-height: 1.6;
+}
+.footer-col h5 {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--steel); margin-bottom: 1.5rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.7rem; }
+.footer-col a {
+  color: var(--ivory-dim); font-size: 0.9rem;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--copper-bright); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 2rem; flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy, .footer-legal {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--steel);
+}
+.footer-legal { display: flex; gap: 2rem; }
+.footer-legal a:hover { color: var(--copper-bright); }
+@media (max-width: 768px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+
+/* ═══════════════════════════════════════════════════════════
+   REVEAL
+   ═══════════════════════════════════════════════════════════ */
+.reveal { opacity: 0; transform: translateY(40px); transition: all 1s var(--ease-out); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+.reveal-d4 { transition-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-media video { display: none; }
+  * { animation: none !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor"></div>
+<div class="cursor-dot"></div>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div>
+    <div class="loader-mark"><em>C</em>M</div>
+    <div class="loader-bar"></div>
+    <div class="loader-label">Wir bauen Werte</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#top" class="nav-mark">CM<span>·</span>BAU<span class="mark-sub">Vorarlberg</span></a>
+  <ul class="nav-links">
+    <li><a href="#leistungen">Leistungen</a></li>
+    <li><a href="#prozess">Prozess</a></li>
+    <li><a href="#referenzen">Referenzen</a></li>
+    <li><a href="#ueber-uns">Über uns</a></li>
+  </ul>
+  <a href="#kontakt" class="nav-cta">Termin vereinbaren</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-media" id="heroMedia">
+    <img src="https://raw.githubusercontent.com/volkancatak1309-max/premium-3d-assets/main/projects/cm-bau/Wooden_house_frame_202604271623.jpeg" alt="Holzbau in Vorarlberg" />
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto">
+      <source src="https://raw.githubusercontent.com/volkancatak1309-max/premium-3d-assets/main/projects/cm-bau/Dust_particles_in_202604271624.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-scanlines"></div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-overline" id="heroOverline">
+        <span class="line"></span>
+        <span>Generalunternehmer · seit 2023</span>
+      </div>
+      <h1 class="hero-title" id="heroTitle">
+        <span class="line"><span>Wo Handwerk</span></span>
+        <span class="line"><span><em>Architektur</em></span></span>
+        <span class="line"><span>wird<span class="accent-mark"></span></span></span>
+      </h1>
+      <p class="hero-sub" id="heroSub">
+        Strukturierte Bauprozesse in Vorarlberg. Neubau, Umbau,
+        Sanierung und Holzbau — verbunden durch ein Versprechen:
+        Handschlagqualität, die Bestand hat.
+      </p>
+      <div class="hero-actions" id="heroActions">
+        <a href="#kontakt" class="btn-primary">
+          <span>Projekt besprechen</span>
+          <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
+            <path d="M1 5h16M13 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" />
+          </svg>
+        </a>
+        <a href="#leistungen" class="btn-ghost">Leistungen entdecken</a>
+      </div>
+    </div>
+    <div class="hero-spec-wrap">
+      <div class="hero-spec" id="heroSpec">
+        <div class="hero-spec-label">Live · Aktuelle Auslastung</div>
+        <div class="hero-spec-row"><span>Aktive Projekte</span><span>07</span></div>
+        <div class="hero-spec-row"><span>Region</span><span>Vorarlberg</span></div>
+        <div class="hero-spec-row"><span>Spezialisierung</span><span>Holzbau</span></div>
+        <div class="hero-spec-row"><span>Kapazität Q3 / 2026</span><span>verfügbar</span></div>
+        <div class="hero-spec-row"><span>Reaktionszeit</span><span>&lt; 24 h</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" id="scrollIndicator">
+    <span>Scroll</span>
+    <div class="scroll-indicator-line"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stat reveal">
+      <div class="stat-num">2023<em>·</em></div>
+      <div class="stat-label">Gegründet</div>
+    </div>
+    <div class="stat reveal reveal-d1">
+      <div class="stat-num" data-counter="27">0</div>
+      <div class="stat-label">Projekte</div>
+    </div>
+    <div class="stat reveal reveal-d2">
+      <div class="stat-num" data-counter="56">0</div>
+      <div class="stat-label">Zufriedene Kunden</div>
+    </div>
+    <div class="stat reveal reveal-d3">
+      <div class="stat-num">100<em>%</em></div>
+      <div class="stat-label">Handschlagqualität</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="section philosophy" id="ueber-uns">
+  <div class="section-inner">
+    <div class="section-label reveal">CM · Bedeutung</div>
+    <div class="cm-mark reveal reveal-d1">
+      <em>C</em><span class="ampersand">&</span><em>M</em>
+    </div>
+    <div class="philosophy-meaning">
+      <div class="philosophy-pair reveal reveal-d2">
+        <h4>Craftsmanship</h4>
+        <p>Über 15 Jahre Erfahrung im Holzbau und in der Baupraxis. Tradition, die in jedem Detail sichtbar ist — vom ersten Strich bis zur Schlüsselübergabe.</p>
+      </div>
+      <div class="philosophy-pair reveal reveal-d3">
+        <h4>Modernity</h4>
+        <p>Strukturierte Prozesse, klare Koordination, durchdachte Materialwahl. Wir sehen die Zukunft im Bewahren — und im konsequenten Modernisieren.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section services" id="leistungen">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-label reveal">Leistungsspektrum</div>
+        <h2 class="section-title reveal reveal-d1">Vier Disziplinen.<br /><em>Eine Handschrift.</em></h2>
+      </div>
+      <p class="section-lead reveal reveal-d2">
+        Als Generalunternehmer übernehmen wir die gesamte Projektkoordination — von der ersten Idee bis zur termingerechten Fertigstellung. Jede Disziplin folgt demselben Anspruch: Präzision, Qualität, Vertrauen.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service reveal">
+        <div class="service-num">01</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 56 56"><path d="M8 48h40M14 48V24L28 12l14 12v24M22 48V36h12v12M28 24v6" /></svg>
+        </div>
+        <h3>Neubau</h3>
+        <p>Von der Grundstücksanalyse bis zum Einzug. Schlüsselfertige Generalunternehmerleistung mit klarer Kostentransparenz und definierten Meilensteinen.</p>
+        <div class="service-tags">
+          <span class="service-tag">Einfamilienhaus</span>
+          <span class="service-tag">Wohnbau</span>
+          <span class="service-tag">Gewerbe</span>
+        </div>
+      </div>
+
+      <div class="service reveal reveal-d1">
+        <div class="service-num">02</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 56 56"><rect x="10" y="14" width="36" height="32" /><path d="M10 26h36M22 14v32M22 26h12v12" /><path d="M14 14l8-8h28l-4 8" /></svg>
+        </div>
+        <h3>Umbau</h3>
+        <p>Bestand denken neu. Strukturelle Anpassungen, Aufstockungen, Zubauten — mit Respekt vor dem Vorhandenen und Klarheit für das Kommende.</p>
+        <div class="service-tags">
+          <span class="service-tag">Aufstockung</span>
+          <span class="service-tag">Zubau</span>
+          <span class="service-tag">Erweiterung</span>
+        </div>
+      </div>
+
+      <div class="service reveal reveal-d2">
+        <div class="service-num">03</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 56 56"><path d="M8 50h40M12 50V20l16-12 16 12v30" /><path d="M20 50V32h6v18M30 50V32h6v18" /><circle cx="28" cy="22" r="2" /></svg>
+        </div>
+        <h3>Sanierung</h3>
+        <p>Altbauten fachgerecht modernisieren. Energetische Optimierung, Substanzerhalt, gestalterische Aufwertung — koordiniert mit regionalen Fachbetrieben.</p>
+        <div class="service-tags">
+          <span class="service-tag">Energetisch</span>
+          <span class="service-tag">Denkmalschutz</span>
+          <span class="service-tag">Modernisierung</span>
+        </div>
+      </div>
+
+      <div class="service reveal reveal-d3">
+        <div class="service-num">04</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 56 56"><path d="M8 48h40M28 48V12M14 18l14-6 14 6M14 28l14-6 14 6M14 38l14-6 14 6" /></svg>
+        </div>
+        <h3>Holzbau</h3>
+        <p>Unsere Wurzeln. Konstruktiver Holzbau, vom Aufstockungsmodul bis zum vollständigen Holzhaus — als nachhaltiges, charaktervolles Statement.</p>
+        <div class="service-tags">
+          <span class="service-tag">Konstruktion</span>
+          <span class="service-tag">Holzhaus</span>
+          <span class="service-tag">Nachhaltig</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section process" id="prozess">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-label reveal">Ablauf</div>
+        <h2 class="section-title reveal reveal-d1">Von der Idee.<br /><em>Bis zur Übergabe.</em></h2>
+      </div>
+      <p class="section-lead reveal reveal-d2">
+        Strukturierte Bauprozesse statt improvisiertem Aktionismus. Jeder Schritt ist dokumentiert, terminiert und mit Ihnen abgestimmt.
+      </p>
+    </div>
+    <div class="process-track" id="processTrack">
+      <div class="process-step reveal"><div class="process-step-num">01</div><h4>Erstgespräch</h4><p>Vision, Rahmen, Machbarkeit. Vor Ort oder digital.</p></div>
+      <div class="process-step reveal reveal-d1"><div class="process-step-num">02</div><h4>Konzept</h4><p>Detaillierte Aufnahme, Variantenstudie, Erstkalkulation.</p></div>
+      <div class="process-step reveal reveal-d2"><div class="process-step-num">03</div><h4>Planung</h4><p>Behörde, Ausführungsplan, Gewerkekoordination.</p></div>
+      <div class="process-step reveal reveal-d3"><div class="process-step-num">04</div><h4>Ausführung</h4><p>Bauleitung, Termin- und Kostencontrolling, Qualitätssicherung.</p></div>
+      <div class="process-step reveal reveal-d4"><div class="process-step-num">05</div><h4>Übergabe</h4><p>Schlussabnahme, Dokumentation, Gewährleistung.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="section portfolio" id="referenzen">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-label reveal">Referenzen</div>
+        <h2 class="section-title reveal reveal-d1">Realisierte<br /><em>Bauwerke.</em></h2>
+      </div>
+      <p class="section-lead reveal reveal-d2">
+        Eine Auswahl unserer Arbeiten in Vorarlberg. Vom Neubau über sensible Sanierungen bis hin zu Holzbau-Projekten mit Charakter.
+      </p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-item reveal">
+        <div class="portfolio-visual" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80');"></div>
+        <div class="portfolio-meta"><div><h4>Aufstockung Hofacker</h4><p>Zubau · 2024</p></div><span class="portfolio-meta-tag">Holzbau</span></div>
+      </div>
+      <div class="portfolio-item reveal reveal-d1">
+        <div class="portfolio-visual" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80');"></div>
+        <div class="portfolio-meta"><div><h4>Villa Özgün</h4><p>Neubau · 2024</p></div><span class="portfolio-meta-tag">Schlüsselfertig</span></div>
+      </div>
+      <div class="portfolio-item reveal reveal-d2">
+        <div class="portfolio-visual" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&q=80');"></div>
+        <div class="portfolio-meta"><div><h4>Sanierung Spiegel</h4><p>Bestandserneuerung · 2023</p></div><span class="portfolio-meta-tag">Sanierung</span></div>
+      </div>
+      <div class="portfolio-item reveal reveal-d3">
+        <div class="portfolio-visual" style="background-image: url('https://images.unsplash.com/photo-1564540583246-934409427776?w=1200&q=80');"></div>
+        <div class="portfolio-meta"><div><h4>Wohnbau Ansicht 1</h4><p>Mehrfamilienhaus · 2024</p></div><span class="portfolio-meta-tag">Neubau</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-portrait reveal"></div>
+      <div>
+        <div class="section-label reveal">Geschäftsführung</div>
+        <p class="about-quote reveal reveal-d1">Ich baue nicht nur Gebäude — ich gestalte Werte.</p>
+        <p class="about-bio reveal reveal-d2">
+          Mit Wurzeln im Holzbau und über 15 Jahren Erfahrung in der Baupraxis stehe ich für präzise Planung, klare Struktur und echte Handschlagqualität. CM verbindet traditionelles Handwerk mit moderner Baukompetenz und entwickelt daraus durchdachte, strukturierte Bauprozesse — für Projekte, die Bestand haben und Vertrauen schaffen.
+        </p>
+        <div class="about-attribution reveal reveal-d3">
+          <div class="about-attribution-line"></div>
+          <div>
+            <div class="about-attribution-name">Mamer Ceylan</div>
+            <div class="about-attribution-role">CEO & Gründer · CM Baumanagement</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <div class="cta-strip-inner">
+    <h2 class="cta-headline reveal">Bereit für ein Bauvorhaben<br /><em>auf höchstem Niveau?</em></h2>
+    <div class="cta-actions reveal reveal-d1">
+      <a href="#kontakt" class="btn-primary">
+        <span>Termin vereinbaren</span>
+        <svg width="18" height="10" viewBox="0 0 18 10" fill="none"><path d="M1 5h16M13 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" /></svg>
+      </a>
+      <a href="tel:+4355229308" class="btn-ghost">+43 5522 93 0 87</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="kontakt">
+  <div class="contact-grid">
+    <div>
+      <div class="section-label reveal">Kontakt</div>
+      <h2 class="section-title reveal reveal-d1" style="margin-bottom: 3rem;">Wir sind<br /><em>für Sie da.</em></h2>
+      <div class="contact-info-block reveal reveal-d2">
+        <div class="contact-info-label">Standort</div>
+        <div class="contact-info-value">Im Kratta 2, 6800 Feldkirch<span class="secondary">Vorarlberg, Österreich</span></div>
+      </div>
+      <div class="contact-info-block reveal reveal-d2">
+        <div class="contact-info-label">Büro</div>
+        <div class="contact-info-value"><a href="tel:+4355229308">+43 5522 93 0 87</a><span class="secondary"><a href="mailto:office@cm-bau.at">office@cm-bau.at</a></span></div>
+      </div>
+      <div class="contact-info-block reveal reveal-d3">
+        <div class="contact-info-label">CEO</div>
+        <div class="contact-info-value">Mamer Ceylan<span class="secondary"><a href="tel:+436769408534">+43 676 940 85 34</a> · <a href="mailto:m.ceylan@cm-bau.at">m.ceylan@cm-bau.at</a></span></div>
+      </div>
+      <div class="contact-info-block reveal reveal-d3">
+        <div class="contact-info-label">Projekt</div>
+        <div class="contact-info-value">Ing. Abdurrahman Türkyilmaz<span class="secondary"><a href="tel:+436765102339">+43 676 510 23 39</a> · <a href="mailto:a.tuerkyilmaz@cm-bau.at">a.tuerkyilmaz@cm-bau.at</a></span></div>
+      </div>
+      <div class="contact-info-block reveal reveal-d3">
+        <div class="contact-info-label">Sprechzeit</div>
+        <div class="contact-info-value" style="font-size: 0.95rem; font-family: var(--font-body); font-weight: 400;">Mo – Fr · 08:00 – 12:00<span class="secondary">13:00 – 17:00</span></div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal reveal-d1">
+      <h3 class="contact-form-title">Projekt anfragen</h3>
+      <p class="contact-form-sub">Antwort innerhalb von 24 Stunden.</p>
+      <div class="field field-row">
+        <div><label for="vn">Vorname</label><input id="vn" type="text" /></div>
+        <div><label for="nn">Nachname</label><input id="nn" type="text" /></div>
+      </div>
+      <div class="field field-row">
+        <div><label for="em">E-Mail</label><input id="em" type="email" /></div>
+        <div><label for="tel">Mobilnummer</label><input id="tel" type="tel" /></div>
+      </div>
+      <div class="field">
+        <label for="anliegen">Ihr Anliegen</label>
+        <select id="anliegen">
+          <option>Auswahl …</option><option>Neubau</option><option>Umbau</option>
+          <option>Sanierung</option><option>Holzbau</option><option>Sonstiges</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Wie wollen Sie kontaktiert werden?</label>
+        <div class="field-radio-group">
+          <div class="field-radio"><input type="radio" name="ch" id="ch1" checked /><label for="ch1">Rückruf</label></div>
+          <div class="field-radio"><input type="radio" name="ch" id="ch2" /><label for="ch2">E-Mail</label></div>
+          <div class="field-radio"><input type="radio" name="ch" id="ch3" /><label for="ch3">WhatsApp</label></div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="msg">Nachricht</label>
+        <textarea id="msg" rows="4"></textarea>
+      </div>
+      <button class="contact-submit" type="button" onclick="alert('Demo: Nachricht würde an office@cm-bau.at gesendet')">
+        <span>Anfrage senden</span>
+        <svg width="18" height="10" viewBox="0 0 18 10" fill="none"><path d="M1 5h16M13 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" /></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-mark">CM<span>·</span>BAU</div>
+        <p class="footer-tagline">Generalunternehmer in Vorarlberg. Wo Handwerk Architektur wird.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigation</h5>
+        <ul><li><a href="#leistungen">Leistungen</a></li><li><a href="#prozess">Prozess</a></li><li><a href="#referenzen">Referenzen</a></li><li><a href="#ueber-uns">Über uns</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>Kontakt</h5>
+        <ul><li><a href="tel:+4355229308">+43 5522 93 0 87</a></li><li><a href="mailto:office@cm-bau.at">office@cm-bau.at</a></li><li>Im Kratta 2, 6800 Feldkirch</li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>Disziplinen</h5>
+        <ul><li>Neubau</li><li>Umbau</li><li>Sanierung</li><li>Holzbau</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 CM Baumanagement · Alle Rechte vorbehalten</div>
+      <div class="footer-legal"><a href="#">Impressum</a><a href="#">Datenschutz</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.0.45/dist/lenis.min.js"></script>
+<script>
+// CURSOR
+const cursor = document.querySelector('.cursor');
+const cursorDot = document.querySelector('.cursor-dot');
+let mx=0,my=0,cx=0,cy=0;
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;if(cursorDot){cursorDot.style.left=mx+'px';cursorDot.style.top=my+'px';}});
+function tickCursor(){cx+=(mx-cx)*0.15;cy+=(my-cy)*0.15;if(cursor){cursor.style.left=cx+'px';cursor.style.top=cy+'px';}requestAnimationFrame(tickCursor);}
+tickCursor();
+document.querySelectorAll('a,button,.portfolio-item,.service,.field-radio label,input,textarea,select').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cursor&&cursor.classList.add('is-hover'));
+  el.addEventListener('mouseleave',()=>cursor&&cursor.classList.remove('is-hover'));
+});
+
+// LENIS
+const lenis = new Lenis({duration:1.4,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true,smoothTouch:false});
+function lenisRaf(time){lenis.raf(time);requestAnimationFrame(lenisRaf);}
+requestAnimationFrame(lenisRaf);
+document.querySelectorAll('a[href^="#"]').forEach(link=>{
+  link.addEventListener('click',e=>{
+    const target=document.querySelector(link.getAttribute('href'));
+    if(target){e.preventDefault();lenis.scrollTo(target,{duration:1.6,offset:-60});}
+  });
+});
+const nav=document.getElementById('nav');
+lenis.on('scroll',({scroll})=>{nav.classList.toggle('is-scrolled',scroll>80);});
+
+// VIDEO
+const heroMedia=document.getElementById('heroMedia');
+const heroVideo=document.getElementById('heroVideo');
+function onVideoReady(){heroVideo.classList.add('is-ready');heroMedia.classList.add('video-loaded');}
+if(heroVideo.readyState>=3){onVideoReady();}else{
+  heroVideo.addEventListener('canplay',onVideoReady,{once:true});
+  heroVideo.addEventListener('loadeddata',onVideoReady,{once:true});
+}
+const playPromise=heroVideo.play();
+if(playPromise!==undefined){playPromise.catch(()=>{
+  document.addEventListener('click',()=>heroVideo.play(),{once:true});
+  document.addEventListener('touchstart',()=>heroVideo.play(),{once:true});
+});}
+
+// REVEAL
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');}});
+},{threshold:0.15,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const pt=document.getElementById('processTrack');if(pt)observer.observe(pt);
+
+// COUNTERS
+function animateCounter(el){
+  const target=parseInt(el.dataset.counter);
+  let cur=0;const dur=2000;const start=performance.now();
+  function step(now){
+    const p=Math.min(1,(now-start)/dur);
+    const eased=1-Math.pow(1-p,3);
+    cur=Math.floor(eased*target);
+    el.textContent=cur;
+    if(p<1)requestAnimationFrame(step);else el.textContent=target;
+  }
+  requestAnimationFrame(step);
+}
+const counterObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting&&!entry.target.dataset.done){
+      entry.target.dataset.done='1';
+      animateCounter(entry.target);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('[data-counter]').forEach(el=>counterObserver.observe(el));
+
+// HERO ENTRANCE
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('is-hidden');
+    setTimeout(()=>{
+      document.getElementById('heroOverline').classList.add('is-visible');
+      document.getElementById('heroTitle').classList.add('is-visible');
+    },200);
+    setTimeout(()=>{
+      document.getElementById('heroSub').classList.add('is-visible');
+      document.getElementById('heroActions').classList.add('is-visible');
+    },700);
+    setTimeout(()=>{
+      document.getElementById('heroSpec').classList.add('is-visible');
+      document.getElementById('scrollIndicator').classList.add('is-visible');
+    },1200);
+  },2500);
+});
+</script>
+</body>
+</html>
