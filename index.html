@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" id="htmlRoot">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>CM Baumanagement — Wo Handwerk Architektur wird.</title>
-<meta name="description" content="Generalunternehmer in Vorarlberg. Neubau, Umbau, Sanierung und Holzbau auf höchstem Niveau. Mamer Ceylan, Feldkirch." />
+<title id="pageTitle">CM Baumanagement — Wo Handwerk Architektur wird.</title>
+<meta name="description" id="pageDesc" content="Generalunternehmer in Vorarlberg. Neubau, Umbau, Sanierung und Holzbau auf höchstem Niveau. Mamer Ceylan, Feldkirch." />
+<link rel="alternate" hreflang="de" href="https://cm-bau-website.vercel.app" />
+<link rel="alternate" hreflang="en" href="https://cm-bau-website.vercel.app/?lang=en" />
+<link rel="alternate" hreflang="tr" href="https://cm-bau-website.vercel.app/?lang=tr" />
 <meta name="theme-color" content="#0a0a0c" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -220,6 +223,60 @@ img, video { max-width: 100%; display: block; }
 @media (max-width: 900px) {
   .nav-links, .nav-cta { display: none; }
   .nav-burger { display: flex; }
+}
+
+/* Language switcher */
+.lang-switch {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.2em;
+  margin: 0 0.5rem;
+}
+.lang-btn {
+  padding: 0.4rem 0.5rem;
+  background: transparent;
+  border: 0;
+  color: var(--steel);
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  transition: color 0.3s;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.lang-btn:hover { color: var(--ivory); }
+.lang-btn.is-active {
+  color: var(--copper);
+}
+.lang-sep {
+  color: var(--steel);
+  opacity: 0.5;
+  user-select: none;
+}
+@media (max-width: 900px) { .lang-switch { display: none; } }
+
+/* Mobile language switcher (inside hamburger menu) */
+.mobile-menu-lang {
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line-soft);
+  font-family: var(--font-mono);
+  font-size: 0.75rem; letter-spacing: 0.2em;
+}
+.mobile-menu-lang .lang-label {
+  color: var(--steel); margin-right: 0.5rem;
+  text-transform: uppercase;
+}
+.mobile-menu-lang .lang-btn {
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+}
+.mobile-menu-lang .lang-btn.is-active {
+  border-color: var(--copper);
+  background: rgba(200, 150, 105, 0.1);
 }
 
 /* Mobile menu overlay */
@@ -1890,7 +1947,7 @@ body.menu-open .float-menu { display: none; }
 <div class="float-menu" id="floatMenu">
 
   <!-- AI ASSISTANT -->
-  <a href="#kontakt" class="float-btn float-btn-ai" data-tooltip="KI-Assistent · Fragen stellen" aria-label="KI-Assistent">
+  <a href="#kontakt" class="float-btn float-btn-ai" data-i18n-tooltip="float_ai" data-tooltip="KI-Assistent · Fragen stellen" aria-label="KI-Assistent">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
       <rect x="3" y="6" width="18" height="14" rx="3" />
       <circle cx="9" cy="13" r="1.2" fill="currentColor" />
@@ -1903,6 +1960,7 @@ body.menu-open .float-menu { display: none; }
   <a href="https://maps.google.com/?q=Im+Kratta+2,+6800+Feldkirch,+Austria"
      target="_blank" rel="noopener"
      class="float-btn float-btn-maps"
+     data-i18n-tooltip="float_maps"
      data-tooltip="Routenplaner · Im Kratta 2"
      aria-label="Routenplaner öffnen">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -1915,6 +1973,7 @@ body.menu-open .float-menu { display: none; }
   <a href="https://wa.me/436769408534?text=Guten%20Tag%20Herr%20Ceylan%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20Bauvorhaben."
      target="_blank" rel="noopener"
      class="float-btn float-btn-wa"
+     data-i18n-tooltip="float_wa"
      data-tooltip="WhatsApp · Sofort-Anfrage"
      aria-label="WhatsApp öffnen">
     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1925,6 +1984,7 @@ body.menu-open .float-menu { display: none; }
   <!-- ÜSTE ÇIK -->
   <button class="float-btn float-btn-top is-hidden"
           id="scrollTopBtn"
+          data-i18n-tooltip="float_top"
           data-tooltip="Nach oben"
           aria-label="Nach oben scrollen">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -1947,12 +2007,19 @@ body.menu-open .float-menu { display: none; }
 <nav class="nav" id="nav">
   <a href="#top" class="nav-mark">CM<span>·</span>BAU<span class="mark-sub">Vorarlberg</span></a>
   <ul class="nav-links">
-    <li><a href="#leistungen">Leistungen</a></li>
-    <li><a href="#prozess">Prozess</a></li>
-    <li><a href="#referenzen">Referenzen</a></li>
-    <li><a href="#ueber-uns">Über uns</a></li>
+    <li><a href="#leistungen" data-i18n="nav_services">Leistungen</a></li>
+    <li><a href="#prozess" data-i18n="nav_process">Prozess</a></li>
+    <li><a href="#referenzen" data-i18n="nav_references">Referenzen</a></li>
+    <li><a href="#ueber-uns" data-i18n="nav_about">Über uns</a></li>
   </ul>
-  <a href="#kontakt" class="nav-cta">Termin vereinbaren</a>
+  <div class="lang-switch" role="group" aria-label="Sprache wählen / Choose language / Dil seçimi">
+    <button class="lang-btn is-active" data-lang="de" type="button" aria-label="Deutsch">DE</button>
+    <span class="lang-sep">·</span>
+    <button class="lang-btn" data-lang="en" type="button" aria-label="English">EN</button>
+    <span class="lang-sep">·</span>
+    <button class="lang-btn" data-lang="tr" type="button" aria-label="Türkçe">TR</button>
+  </div>
+  <a href="#kontakt" class="nav-cta" data-i18n="nav_cta">Termin vereinbaren</a>
   <button class="nav-burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -1962,19 +2029,25 @@ body.menu-open .float-menu { display: none; }
 <div class="mobile-menu" id="mobileMenu">
   <div>
     <ul>
-      <li><a href="#leistungen" data-mm-link>Leistungen</a></li>
-      <li><a href="#prozess" data-mm-link>Prozess</a></li>
-      <li><a href="#referenzen" data-mm-link>Referenzen</a></li>
-      <li><a href="#ueber-uns" data-mm-link>Über uns</a></li>
-      <li><a href="#kontakt" data-mm-link>Kontakt</a></li>
+      <li><a href="#leistungen" data-mm-link data-i18n="nav_services">Leistungen</a></li>
+      <li><a href="#prozess" data-mm-link data-i18n="nav_process">Prozess</a></li>
+      <li><a href="#referenzen" data-mm-link data-i18n="nav_references">Referenzen</a></li>
+      <li><a href="#ueber-uns" data-mm-link data-i18n="nav_about">Über uns</a></li>
+      <li><a href="#kontakt" data-mm-link data-i18n="nav_contact">Kontakt</a></li>
     </ul>
     <div class="mobile-menu-cta">
       <a href="#kontakt" class="btn-primary" data-mm-link>
-        <span>Termin vereinbaren</span>
+        <span data-i18n="nav_cta">Termin vereinbaren</span>
         <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
           <path d="M1 5h16M13 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" />
         </svg>
       </a>
+    </div>
+    <div class="mobile-menu-lang">
+      <span class="lang-label" data-i18n="lang_label">Sprache</span>
+      <button class="lang-btn is-active" data-lang="de" type="button">DE</button>
+      <button class="lang-btn" data-lang="en" type="button">EN</button>
+      <button class="lang-btn" data-lang="tr" type="button">TR</button>
     </div>
   </div>
   <div class="mobile-menu-foot">
@@ -1998,14 +2071,14 @@ body.menu-open .float-menu { display: none; }
     <div class="hero-text">
       <div class="hero-overline" id="heroOverline">
         <span class="line"></span>
-        <span>Generalunternehmer · seit 2023</span>
+        <span data-i18n="hero_overline">Generalunternehmer · seit 2023</span>
       </div>
       <h1 class="hero-title" id="heroTitle">
-        <span class="line"><span>Präzision<span class="accent-mark"></span></span></span>
-        <span class="line"><span><em>Effizienz</em><span class="accent-mark"></span></span></span>
-        <span class="line"><span>Handschlag.</span></span>
+        <span class="line"><span data-i18n="hero_title_1">Präzision<span class="accent-mark"></span></span></span>
+        <span class="line"><span><em data-i18n="hero_title_2">Effizienz</em><span class="accent-mark"></span></span></span>
+        <span class="line"><span data-i18n="hero_title_3">Handschlag.</span></span>
       </h1>
-      <p class="hero-sub" id="heroSub">
+      <p class="hero-sub" id="heroSub" data-i18n="hero_sub">
         Ihr bevorzugter Generalunternehmer in Vorarlberg für Neubau, Umbau,
         Sanierung und Holzbau. Wir stehen für strukturierte Bauprozesse,
         die Qualität, Zeit und Budget vereinen — von der ersten Idee
@@ -2013,28 +2086,28 @@ body.menu-open .float-menu { display: none; }
       </p>
       <div class="hero-actions" id="heroActions">
         <a href="#kontakt" class="btn-primary">
-          <span>Projekt besprechen</span>
+          <span data-i18n="hero_cta_primary">Projekt besprechen</span>
           <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
             <path d="M1 5h16M13 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" />
           </svg>
         </a>
-        <a href="#leistungen" class="btn-ghost">Leistungen entdecken</a>
+        <a href="#leistungen" class="btn-ghost" data-i18n="hero_cta_secondary">Leistungen entdecken</a>
       </div>
     </div>
     <div class="hero-spec-wrap">
       <div class="hero-spec" id="heroSpec">
-        <div class="hero-spec-label">Live · Aktuelle Auslastung</div>
-        <div class="hero-spec-row"><span>Aktive Projekte</span><span>07</span></div>
-        <div class="hero-spec-row"><span>Region</span><span>Vorarlberg</span></div>
-        <div class="hero-spec-row"><span>Spezialisierung</span><span>Holzbau</span></div>
-        <div class="hero-spec-row"><span>Kapazität Q3 / 2026</span><span>verfügbar</span></div>
-        <div class="hero-spec-row"><span>Reaktionszeit</span><span>&lt; 24 h</span></div>
+        <div class="hero-spec-label" data-i18n="spec_label">Live · Aktuelle Auslastung</div>
+        <div class="hero-spec-row"><span data-i18n="spec_active">Aktive Projekte</span><span>07</span></div>
+        <div class="hero-spec-row"><span data-i18n="spec_region">Region</span><span>Vorarlberg</span></div>
+        <div class="hero-spec-row"><span data-i18n="spec_specialty">Spezialisierung</span><span data-i18n="spec_specialty_value">Holzbau</span></div>
+        <div class="hero-spec-row"><span data-i18n="spec_capacity">Kapazität Q3 / 2026</span><span data-i18n="spec_capacity_value">verfügbar</span></div>
+        <div class="hero-spec-row"><span data-i18n="spec_response">Reaktionszeit</span><span>&lt; 24 h</span></div>
       </div>
     </div>
   </div>
 
   <div class="scroll-indicator" id="scrollIndicator">
-    <span>Scroll</span>
+    <span data-i18n="scroll_word">Scroll</span>
     <div class="scroll-indicator-line"></div>
   </div>
 </section>
@@ -2044,19 +2117,19 @@ body.menu-open .float-menu { display: none; }
   <div class="stats-inner">
     <div class="stat reveal">
       <div class="stat-num">2023<em>·</em></div>
-      <div class="stat-label">Gegründet</div>
+      <div class="stat-label" data-i18n="stat_founded">Gegründet</div>
     </div>
     <div class="stat reveal reveal-d1">
       <div class="stat-num"><span data-counter="27">0</span><em>+</em></div>
-      <div class="stat-label">Projekte</div>
+      <div class="stat-label" data-i18n="stat_projects">Projekte</div>
     </div>
     <div class="stat reveal reveal-d2">
       <div class="stat-num"><span data-counter="56">0</span><em>+</em></div>
-      <div class="stat-label">Zufriedene Kunden</div>
+      <div class="stat-label" data-i18n="stat_clients">Zufriedene Kunden</div>
     </div>
     <div class="stat reveal reveal-d3">
       <div class="stat-num">100<em>%</em></div>
-      <div class="stat-label">Handschlagqualität</div>
+      <div class="stat-label" data-i18n="stat_quality">Handschlagqualität</div>
     </div>
   </div>
 </section>
@@ -2064,11 +2137,11 @@ body.menu-open .float-menu { display: none; }
 <!-- PHILOSOPHY -->
 <section class="section philosophy" id="ueber-uns">
   <div class="section-inner">
-    <div class="section-label reveal">CM · Bedeutung</div>
+    <div class="section-label reveal" data-i18n="phil_label">CM · Bedeutung</div>
     <div class="cm-mark reveal reveal-d1">
       <em>C</em><span class="ampersand">&</span><em>M</em>
     </div>
-    <p class="cm-tagline reveal reveal-d2">
+    <p class="cm-tagline reveal reveal-d2" data-i18n-html="phil_tagline">
       CM steht für <em>Craftsmanship & Modernity.</em> Wir bewahren das
       traditionelle Handwerk und sehen die Zukunft in der konsequenten
       Modernisierung.
@@ -2081,10 +2154,10 @@ body.menu-open .float-menu { display: none; }
   <div class="section-inner">
     <div class="section-head">
       <div>
-        <div class="section-label reveal">Bauen ohne Kompromisse</div>
-        <h2 class="section-title reveal reveal-d1">Was Bauherren<br /><em>von uns erwarten dürfen.</em></h2>
+        <div class="section-label reveal" data-i18n="guar_label">Bauen ohne Kompromisse</div>
+        <h2 class="section-title reveal reveal-d1" data-i18n-html="guar_title">Was Bauherren<br /><em>von uns erwarten dürfen.</em></h2>
       </div>
-      <p class="section-lead reveal reveal-d2">
+      <p class="section-lead reveal reveal-d2" data-i18n="guar_lead">
         Als Generalunternehmer übernehmen wir die komplette Koordination aller
         regionalen Fachbetriebe aus dem Ländle und Umgebung. Zwei Versprechen
         stehen dabei kompromisslos im Vordergrund.
@@ -2101,9 +2174,9 @@ body.menu-open .float-menu { display: none; }
           </svg>
         </div>
         <div class="guarantee-num">I</div>
-        <h3>Termin-Garantie</h3>
-        <p class="guarantee-emph">Ihre Zeit ist kostbar.</p>
-        <p>Daher legen wir großen Wert auf die Einhaltung des vereinbarten Zeitplans. Mit bewährten Prozessen und effizienter Koordination garantieren wir eine zügige und termingerechte Fertigstellung Ihres Projekts.</p>
+        <h3 data-i18n="guar_termin_title">Termin-Garantie</h3>
+        <p class="guarantee-emph" data-i18n="guar_termin_emph">Ihre Zeit ist kostbar.</p>
+        <p data-i18n="guar_termin_text">Daher legen wir großen Wert auf die Einhaltung des vereinbarten Zeitplans. Mit bewährten Prozessen und effizienter Koordination garantieren wir eine zügige und termingerechte Fertigstellung Ihres Projekts.</p>
       </div>
 
       <div class="guarantee reveal reveal-d1">
@@ -2117,16 +2190,16 @@ body.menu-open .float-menu { display: none; }
           </svg>
         </div>
         <div class="guarantee-num">II</div>
-        <h3>Budget-Sicherheit</h3>
-        <p class="guarantee-emph">Transparente Kostenkontrolle.</p>
-        <p>Transparente Kostenaufstellung und striktes Budgetmanagement bilden die Grundsteine unserer Arbeit. Wir setzen uns dafür ein, Ihr Budget sorgfältig einzuhalten und durch kreative und effektive Lösungen eine wirtschaftliche Realisierung Ihres Projekts sicherzustellen.</p>
+        <h3 data-i18n="guar_budget_title">Budget-Sicherheit</h3>
+        <p class="guarantee-emph" data-i18n="guar_budget_emph">Transparente Kostenkontrolle.</p>
+        <p data-i18n="guar_budget_text">Transparente Kostenaufstellung und striktes Budgetmanagement bilden die Grundsteine unserer Arbeit. Wir setzen uns dafür ein, Ihr Budget sorgfältig einzuhalten und durch kreative und effektive Lösungen eine wirtschaftliche Realisierung Ihres Projekts sicherzustellen.</p>
       </div>
     </div>
 
     <p class="guarantees-foot reveal reveal-d2">
       <span class="guarantees-foot-mark"></span>
-      Wir arbeiten ausschließlich mit geprüften, regionalen Fachbetrieben aus
-      Vorarlberg und Umgebung — vom ersten Aushub bis zur Schlüsselübergabe.
+      <span data-i18n="guar_foot">Wir arbeiten ausschließlich mit geprüften, regionalen Fachbetrieben aus
+      Vorarlberg und Umgebung — vom ersten Aushub bis zur Schlüsselübergabe.</span>
     </p>
   </div>
 </section>
@@ -2136,10 +2209,10 @@ body.menu-open .float-menu { display: none; }
   <div class="section-inner">
     <div class="section-head">
       <div>
-        <div class="section-label reveal">Leistungsspektrum</div>
-        <h2 class="section-title reveal reveal-d1">Spezialist für<br /><em>Bauvorhaben.</em></h2>
+        <div class="section-label reveal" data-i18n="srv_label">Leistungsspektrum</div>
+        <h2 class="section-title reveal reveal-d1" data-i18n-html="srv_title">Spezialist für<br /><em>Bauvorhaben.</em></h2>
       </div>
-      <p class="section-lead reveal reveal-d2">
+      <p class="section-lead reveal reveal-d2" data-i18n="srv_lead">
         Von der Revitalisierung historischer Bauten über moderne Neubauten
         bis hin zu anspruchsvollen Umbauprojekten. Spezialisierte Bauleistungen
         werden dabei durch entsprechend qualifizierte, regionale Fachbetriebe umgesetzt.
@@ -2152,12 +2225,12 @@ body.menu-open .float-menu { display: none; }
         <div class="service-icon">
           <svg viewBox="0 0 56 56"><path d="M8 48h40M14 48V24L28 12l14 12v24M22 48V36h12v12M28 24v6" /></svg>
         </div>
-        <h3>Neubau</h3>
-        <p>Von der Grundstücksanalyse bis zum Einzug. Schlüsselfertige Generalunternehmerleistung mit klarer Kostentransparenz und definierten Meilensteinen.</p>
+        <h3 data-i18n="srv_neubau_title">Neubau</h3>
+        <p data-i18n="srv_neubau_text">Von der Grundstücksanalyse bis zum Einzug. Schlüsselfertige Generalunternehmerleistung mit klarer Kostentransparenz und definierten Meilensteinen.</p>
         <div class="service-tags">
-          <span class="service-tag">Einfamilienhaus</span>
-          <span class="service-tag">Wohnbau</span>
-          <span class="service-tag">Gewerbe</span>
+          <span class="service-tag" data-i18n="srv_neubau_tag1">Einfamilienhaus</span>
+          <span class="service-tag" data-i18n="srv_neubau_tag2">Wohnbau</span>
+          <span class="service-tag" data-i18n="srv_neubau_tag3">Gewerbe</span>
         </div>
       </div>
 
@@ -2166,12 +2239,12 @@ body.menu-open .float-menu { display: none; }
         <div class="service-icon">
           <svg viewBox="0 0 56 56"><rect x="10" y="14" width="36" height="32" /><path d="M10 26h36M22 14v32M22 26h12v12" /><path d="M14 14l8-8h28l-4 8" /></svg>
         </div>
-        <h3>Umbau</h3>
-        <p>Den Bestand neu denken. Strukturelle Anpassungen, Aufstockungen und Zubauten — mit Respekt vor der Substanz und Klarheit in der Umsetzung.</p>
+        <h3 data-i18n="srv_umbau_title">Umbau</h3>
+        <p data-i18n="srv_umbau_text">Den Bestand neu denken. Strukturelle Anpassungen, Aufstockungen und Zubauten — mit Respekt vor der Substanz und Klarheit in der Umsetzung.</p>
         <div class="service-tags">
-          <span class="service-tag">Aufstockung</span>
-          <span class="service-tag">Zubau</span>
-          <span class="service-tag">Erweiterung</span>
+          <span class="service-tag" data-i18n="srv_umbau_tag1">Aufstockung</span>
+          <span class="service-tag" data-i18n="srv_umbau_tag2">Zubau</span>
+          <span class="service-tag" data-i18n="srv_umbau_tag3">Erweiterung</span>
         </div>
       </div>
 
@@ -2180,12 +2253,12 @@ body.menu-open .float-menu { display: none; }
         <div class="service-icon">
           <svg viewBox="0 0 56 56"><path d="M8 50h40M12 50V20l16-12 16 12v30" /><path d="M20 50V32h6v18M30 50V32h6v18" /><circle cx="28" cy="22" r="2" /></svg>
         </div>
-        <h3>Sanierung</h3>
-        <p>Altbauten fachgerecht modernisieren. Energetische Optimierung, Substanzerhalt, gestalterische Aufwertung — koordiniert mit regionalen Fachbetrieben.</p>
+        <h3 data-i18n="srv_san_title">Sanierung</h3>
+        <p data-i18n="srv_san_text">Altbauten fachgerecht modernisieren. Energetische Optimierung, Substanzerhalt, gestalterische Aufwertung — koordiniert mit regionalen Fachbetrieben.</p>
         <div class="service-tags">
-          <span class="service-tag">Energetisch</span>
-          <span class="service-tag">Denkmalschutz</span>
-          <span class="service-tag">Modernisierung</span>
+          <span class="service-tag" data-i18n="srv_san_tag1">Energetisch</span>
+          <span class="service-tag" data-i18n="srv_san_tag2">Denkmalschutz</span>
+          <span class="service-tag" data-i18n="srv_san_tag3">Modernisierung</span>
         </div>
       </div>
 
@@ -2194,12 +2267,12 @@ body.menu-open .float-menu { display: none; }
         <div class="service-icon">
           <svg viewBox="0 0 56 56"><path d="M8 48h40M28 48V12M14 18l14-6 14 6M14 28l14-6 14 6M14 38l14-6 14 6" /></svg>
         </div>
-        <h3>Holzbau</h3>
-        <p>Unsere Wurzeln. Konstruktiver Holzbau, vom Aufstockungsmodul bis zum vollständigen Holzhaus — als nachhaltiges, charaktervolles Statement.</p>
+        <h3 data-i18n="srv_holz_title">Holzbau</h3>
+        <p data-i18n="srv_holz_text">Unsere Wurzeln. Konstruktiver Holzbau, vom Aufstockungsmodul bis zum vollständigen Holzhaus — als nachhaltiges, charaktervolles Statement.</p>
         <div class="service-tags">
-          <span class="service-tag">Konstruktion</span>
-          <span class="service-tag">Holzhaus</span>
-          <span class="service-tag">Nachhaltig</span>
+          <span class="service-tag" data-i18n="srv_holz_tag1">Konstruktion</span>
+          <span class="service-tag" data-i18n="srv_holz_tag2">Holzhaus</span>
+          <span class="service-tag" data-i18n="srv_holz_tag3">Nachhaltig</span>
         </div>
       </div>
     </div>
@@ -2218,12 +2291,12 @@ body.menu-open .float-menu { display: none; }
   <div class="atmosphere-content">
     <div class="atmosphere-overline reveal">
       <span class="line"></span>
-      <span>Atmosphäre · Vorarlberg</span>
+      <span data-i18n="atm_overline">Atmosphäre · Vorarlberg</span>
     </div>
-    <h2 class="atmosphere-title reveal reveal-d1">
+    <h2 class="atmosphere-title reveal reveal-d1" data-i18n-html="atm_title">
       Wenn der Tag<br /><em>zur Ruhe kommt.</em>
     </h2>
-    <p class="atmosphere-sub reveal reveal-d2">
+    <p class="atmosphere-sub reveal reveal-d2" data-i18n="atm_sub">
       Ein fertiges Bauwerk ist mehr als Mauern, Holz und Glas. Es ist
       der Ort, an dem Geschichten beginnen — sicher gebaut, sorgfältig
       koordiniert, termingerecht übergeben.
@@ -2236,10 +2309,10 @@ body.menu-open .float-menu { display: none; }
   <div class="section-inner">
     <div class="section-head">
       <div>
-        <div class="section-label reveal">Unsere Werte</div>
-        <h2 class="section-title reveal reveal-d1">Fünf Prinzipien.<br /><em>Eine Verpflichtung.</em></h2>
+        <div class="section-label reveal" data-i18n="prin_label">Unsere Werte</div>
+        <h2 class="section-title reveal reveal-d1" data-i18n-html="prin_title">Fünf Prinzipien.<br /><em>Eine Verpflichtung.</em></h2>
       </div>
-      <p class="section-lead reveal reveal-d2">
+      <p class="section-lead reveal reveal-d2" data-i18n="prin_lead">
         Entdecken Sie unsere vielfältige Palette an Dienstleistungen, die darauf
         ausgerichtet sind, all Ihre individuellen Bedürfnisse und Anforderungen
         bestmöglich zu erfüllen.
@@ -2249,29 +2322,29 @@ body.menu-open .float-menu { display: none; }
     <div class="principles-grid">
       <div class="principle reveal">
         <div class="principle-num">01</div>
-        <h3>Projektberatung + Management</h3>
-        <p>Wir starten jedes Projekt mit einer detaillierten Aufnahme Ihrer Vision, um Ihre Wünsche maßgerecht umzusetzen. Unser Team arbeitet eng mit Ihnen zusammen, um jeden Aspekt Ihres Projektes zu prüfen und zu koordinieren, wobei Ihre Anforderungen stets im Vordergrund stehen.</p>
+        <h3 data-i18n="prin1_title">Projektberatung + Management</h3>
+        <p data-i18n="prin1_text">Wir starten jedes Projekt mit einer detaillierten Aufnahme Ihrer Vision, um Ihre Wünsche maßgerecht umzusetzen. Unser Team arbeitet eng mit Ihnen zusammen, um jeden Aspekt Ihres Projektes zu prüfen und zu koordinieren, wobei Ihre Anforderungen stets im Vordergrund stehen.</p>
       </div>
       <div class="principle reveal reveal-d1">
         <div class="principle-num">02</div>
-        <h3>Koordination</h3>
-        <p>Ein reibungsloser Ablauf erfordert eine sorgfältige Abstimmung aller Gewerke. Wir übernehmen die Koordination der beteiligten Unternehmen und Fachkräfte, um eine harmonische und zielgerichtete Zusammenarbeit zu sichern.</p>
+        <h3 data-i18n="prin2_title">Koordination</h3>
+        <p data-i18n="prin2_text">Ein reibungsloser Ablauf erfordert eine sorgfältige Abstimmung aller Gewerke. Wir übernehmen die Koordination der beteiligten Unternehmen und Fachkräfte, um eine harmonische und zielgerichtete Zusammenarbeit zu sichern.</p>
       </div>
       <div class="principle reveal reveal-d2">
         <div class="principle-num">03</div>
-        <h3>Nachhaltigkeit</h3>
-        <p>Nachhaltige Materialbeschaffung ist ein zentrales Anliegen, daher wählen wir Materialien und Ressourcen sorgfältig aus, um nicht nur die Umwelt zu schonen, sondern auch langfristige Wertbeständigkeit in Ihr Bauwerk zu bringen.</p>
+        <h3 data-i18n="prin3_title">Nachhaltigkeit</h3>
+        <p data-i18n="prin3_text">Nachhaltige Materialbeschaffung ist ein zentrales Anliegen, daher wählen wir Materialien und Ressourcen sorgfältig aus, um nicht nur die Umwelt zu schonen, sondern auch langfristige Wertbeständigkeit in Ihr Bauwerk zu bringen.</p>
       </div>
       <div class="principle reveal reveal-d3">
         <div class="principle-num">04</div>
-        <h3>Termintreue</h3>
-        <p class="principle-emph">Ihre Zeit ist kostbar!</p>
-        <p>Daher legen wir großen Wert auf die Einhaltung des vereinbarten Zeitplans. Mit bewährten Prozessen und effizienter Koordination garantieren wir eine zügige und termingerechte Fertigstellung Ihres Projekts.</p>
+        <h3 data-i18n="prin4_title">Termintreue</h3>
+        <p class="principle-emph" data-i18n="prin4_emph">Ihre Zeit ist kostbar!</p>
+        <p data-i18n="prin4_text">Daher legen wir großen Wert auf die Einhaltung des vereinbarten Zeitplans. Mit bewährten Prozessen und effizienter Koordination garantieren wir eine zügige und termingerechte Fertigstellung Ihres Projekts.</p>
       </div>
       <div class="principle reveal reveal-d4">
         <div class="principle-num">05</div>
-        <h3>Kostenmanagement</h3>
-        <p>Transparente Kostenaufstellung und striktes Budgetmanagement bilden die Grundsteine unserer Arbeit. Wir setzen uns dafür ein, Ihr Budget sorgfältig einzuhalten und durch kreative und effektive Lösungen eine wirtschaftliche Realisierung Ihres Projekts sicherzustellen.</p>
+        <h3 data-i18n="prin5_title">Kostenmanagement</h3>
+        <p data-i18n="prin5_text">Transparente Kostenaufstellung und striktes Budgetmanagement bilden die Grundsteine unserer Arbeit. Wir setzen uns dafür ein, Ihr Budget sorgfältig einzuhalten und durch kreative und effektive Lösungen eine wirtschaftliche Realisierung Ihres Projekts sicherzustellen.</p>
       </div>
     </div>
   </div>
@@ -2282,19 +2355,19 @@ body.menu-open .float-menu { display: none; }
   <div class="section-inner">
     <div class="section-head">
       <div>
-        <div class="section-label reveal">Ablauf</div>
-        <h2 class="section-title reveal reveal-d1">Von der Idee.<br /><em>Bis zur Übergabe.</em></h2>
+        <div class="section-label reveal" data-i18n="prc_label">Ablauf</div>
+        <h2 class="section-title reveal reveal-d1" data-i18n-html="prc_title">Von der Idee.<br /><em>Bis zur Übergabe.</em></h2>
       </div>
-      <p class="section-lead reveal reveal-d2">
+      <p class="section-lead reveal reveal-d2" data-i18n="prc_lead">
         Strukturierte Bauprozesse statt improvisiertem Aktionismus. Jeder Schritt ist dokumentiert, terminiert und mit Ihnen abgestimmt.
       </p>
     </div>
     <div class="process-track" id="processTrack">
-      <div class="process-step reveal"><div class="process-step-num">01</div><h4>Erstgespräch</h4><p>Vision, Rahmen, Machbarkeit. Vor Ort oder digital.</p></div>
-      <div class="process-step reveal reveal-d1"><div class="process-step-num">02</div><h4>Konzept</h4><p>Detaillierte Aufnahme, Variantenstudie, Erstkalkulation.</p></div>
-      <div class="process-step reveal reveal-d2"><div class="process-step-num">03</div><h4>Planung</h4><p>Behörde, Ausführungsplan, Gewerkekoordination.</p></div>
-      <div class="process-step reveal reveal-d3"><div class="process-step-num">04</div><h4>Ausführung</h4><p>Bauleitung, Termin- und Kostencontrolling, Qualitätssicherung.</p></div>
-      <div class="process-step reveal reveal-d4"><div class="process-step-num">05</div><h4>Übergabe</h4><p>Schlussabnahme, Dokumentation, Gewährleistung.</p></div>
+      <div class="process-step reveal"><div class="process-step-num">01</div><h4 data-i18n="prc1_title">Erstgespräch</h4><p data-i18n="prc1_text">Vision, Rahmen, Machbarkeit. Vor Ort oder digital.</p></div>
+      <div class="process-step reveal reveal-d1"><div class="process-step-num">02</div><h4 data-i18n="prc2_title">Konzept</h4><p data-i18n="prc2_text">Detaillierte Aufnahme, Variantenstudie, Erstkalkulation.</p></div>
+      <div class="process-step reveal reveal-d2"><div class="process-step-num">03</div><h4 data-i18n="prc3_title">Planung</h4><p data-i18n="prc3_text">Behörde, Ausführungsplan, Gewerkekoordination.</p></div>
+      <div class="process-step reveal reveal-d3"><div class="process-step-num">04</div><h4 data-i18n="prc4_title">Ausführung</h4><p data-i18n="prc4_text">Bauleitung, Termin- und Kostencontrolling, Qualitätssicherung.</p></div>
+      <div class="process-step reveal reveal-d4"><div class="process-step-num">05</div><h4 data-i18n="prc5_title">Übergabe</h4><p data-i18n="prc5_text">Schlussabnahme, Dokumentation, Gewährleistung.</p></div>
     </div>
   </div>
 </section>
@@ -2304,10 +2377,10 @@ body.menu-open .float-menu { display: none; }
   <div class="section-inner">
     <div class="section-head">
       <div>
-        <div class="section-label reveal">Projekt Aufstockung</div>
-        <h2 class="section-title reveal reveal-d1">Vorher.<br /><em>Nachher.</em></h2>
+        <div class="section-label reveal" data-i18n="bau_label">Projekt Aufstockung</div>
+        <h2 class="section-title reveal reveal-d1" data-i18n-html="bau_title">Vorher.<br /><em>Nachher.</em></h2>
       </div>
-      <p class="section-lead reveal reveal-d2">
+      <p class="section-lead reveal reveal-d2" data-i18n="bau_lead">
         Eine reale Aufstockung in Vorarlberg, in zehn Sekunden erzählt.
         Drei Fassaden, drei Perspektiven — der Bestand bleibt,
         der Charakter wächst.
@@ -2321,7 +2394,7 @@ body.menu-open .float-menu { display: none; }
       </video>
       <div class="bauprozess-video-overlay"></div>
       <div class="bauprozess-video-corner">
-        <span class="bauprozess-video-tag">Vorher · Nachher</span>
+        <span class="bauprozess-video-tag" data-i18n="bau_tag">Vorher · Nachher</span>
       </div>
     </div>
   </div>
@@ -2332,29 +2405,29 @@ body.menu-open .float-menu { display: none; }
   <div class="section-inner">
     <div class="section-head">
       <div>
-        <div class="section-label reveal">Referenzen</div>
-        <h2 class="section-title reveal reveal-d1">Realisierte<br /><em>Bauwerke.</em></h2>
+        <div class="section-label reveal" data-i18n="ref_label">Referenzen</div>
+        <h2 class="section-title reveal reveal-d1" data-i18n-html="ref_title">Realisierte<br /><em>Bauwerke.</em></h2>
       </div>
-      <p class="section-lead reveal reveal-d2">
+      <p class="section-lead reveal reveal-d2" data-i18n="ref_lead">
         Eine Auswahl unserer Arbeiten in Vorarlberg. Vom Neubau über sensible Sanierungen bis hin zu Holzbau-Projekten mit Charakter.
       </p>
     </div>
     <div class="portfolio-grid">
       <div class="portfolio-item reveal">
         <div class="portfolio-visual" style="background-image: url('https://www.cm-bau.at/images/Ansicht-1---nacher_1.avif');"></div>
-        <div class="portfolio-meta"><div><h4>Aufstockung</h4><p>Vorher · Nachher</p></div><span class="portfolio-meta-tag">Aufstockung</span></div>
+        <div class="portfolio-meta"><div><h4 data-i18n="ref1_title">Aufstockung</h4><p data-i18n="ref1_meta">Vorher · Nachher</p></div><span class="portfolio-meta-tag" data-i18n="ref1_tag">Aufstockung</span></div>
       </div>
       <div class="portfolio-item reveal reveal-d1">
         <div class="portfolio-visual" style="background-image: url('https://www.cm-bau.at/images/Hofacker-2-Umbau.avif');"></div>
-        <div class="portfolio-meta"><div><h4>Hofacker</h4><p>Zubau · Umbau</p></div><span class="portfolio-meta-tag">Zubau</span></div>
+        <div class="portfolio-meta"><div><h4 data-i18n="ref2_title">Hofacker</h4><p data-i18n="ref2_meta">Zubau · Umbau</p></div><span class="portfolio-meta-tag" data-i18n="ref2_tag">Zubau</span></div>
       </div>
       <div class="portfolio-item reveal reveal-d2">
         <div class="portfolio-visual" style="background-image: url('https://www.cm-bau.at/images/Oezguen-2_1.avif');"></div>
-        <div class="portfolio-meta"><div><h4>Özgün</h4><p>Schlüsselfertig</p></div><span class="portfolio-meta-tag">Neubau</span></div>
+        <div class="portfolio-meta"><div><h4 data-i18n="ref3_title">Özgün</h4><p data-i18n="ref3_meta">Schlüsselfertig</p></div><span class="portfolio-meta-tag" data-i18n="ref3_tag">Neubau</span></div>
       </div>
       <div class="portfolio-item reveal reveal-d3">
         <div class="portfolio-visual" style="background-image: url('https://www.cm-bau.at/images/Spiegel_1.avif');"></div>
-        <div class="portfolio-meta"><div><h4>Spiegel</h4><p>Bestandserneuerung</p></div><span class="portfolio-meta-tag">Sanierung</span></div>
+        <div class="portfolio-meta"><div><h4 data-i18n="ref4_title">Spiegel</h4><p data-i18n="ref4_meta">Bestandserneuerung</p></div><span class="portfolio-meta-tag" data-i18n="ref4_tag">Sanierung</span></div>
       </div>
     </div>
   </div>
@@ -2366,13 +2439,13 @@ body.menu-open .float-menu { display: none; }
     <div class="werte-grid">
       <div class="werte-card reveal">
         <div class="werte-num">I</div>
-        <h3>Engagement</h3>
-        <p>Höchste Qualitätsstandards und eine kundenorientierte Herangehensweise zeichnen unsere Arbeit aus.</p>
+        <h3 data-i18n="werte_eng_title">Engagement</h3>
+        <p data-i18n="werte_eng_text">Höchste Qualitätsstandards und eine kundenorientierte Herangehensweise zeichnen unsere Arbeit aus.</p>
       </div>
       <div class="werte-card reveal reveal-d1">
         <div class="werte-num">II</div>
-        <h3>Vertrauen</h3>
-        <p>Zählen auf unser professionelles Team, das Ihr Bauprojekt mit Sorgfalt und fachlicher Kompetenz zum Erfolg führt.</p>
+        <h3 data-i18n="werte_ver_title">Vertrauen</h3>
+        <p data-i18n="werte_ver_text">Zählen auf unser professionelles Team, das Ihr Bauprojekt mit Sorgfalt und fachlicher Kompetenz zum Erfolg führt.</p>
       </div>
     </div>
   </div>
@@ -2383,10 +2456,10 @@ body.menu-open .float-menu { display: none; }
   <div class="section-inner">
     <div class="section-head">
       <div>
-        <div class="section-label reveal">Geschäftsführung</div>
-        <h2 class="section-title reveal reveal-d1">Die Köpfe<br /><em>hinter CM.</em></h2>
+        <div class="section-label reveal" data-i18n="abt_label">Geschäftsführung</div>
+        <h2 class="section-title reveal reveal-d1" data-i18n-html="abt_title">Die Köpfe<br /><em>hinter CM.</em></h2>
       </div>
-      <p class="section-lead reveal reveal-d2">
+      <p class="section-lead reveal reveal-d2" data-i18n="abt_lead">
         Wir verstehen die Einzigartigkeit jedes Projektes und bieten daher
         maßgeschneiderte Lösungen, die präzise auf unsere Kunden abgestimmt
         werden.
@@ -2400,8 +2473,8 @@ body.menu-open .float-menu { display: none; }
         </div>
       </div>
       <div>
-        <p class="about-quote reveal reveal-d1">Ich baue nicht nur Gebäude — ich gestalte Werte.</p>
-        <p class="about-bio reveal reveal-d2">
+        <p class="about-quote reveal reveal-d1" data-i18n="abt_quote">Ich baue nicht nur Gebäude — ich gestalte Werte.</p>
+        <p class="about-bio reveal reveal-d2" data-i18n="abt_bio">
           Mit Wurzeln im Holzbau und über 15 Jahren Erfahrung in der Baupraxis stehe ich für präzise Planung, klare Struktur und echte Handschlagqualität. Ich verbinde traditionelles Handwerk mit moderner Baukompetenz und entwickle daraus durchdachte, strukturierte Bauprozesse — für Projekte, die Bestand haben und Vertrauen schaffen.
         </p>
 
@@ -2410,7 +2483,7 @@ body.menu-open .float-menu { display: none; }
             <div class="about-attribution-line"></div>
             <div>
               <div class="about-attribution-name">Mamer Ceylan</div>
-              <div class="about-attribution-role">CEO & Founder</div>
+              <div class="about-attribution-role" data-i18n="abt_role_ceo">CEO & Founder</div>
               <div class="about-attribution-contact">
                 <a href="tel:+436769408534">+43 676 940 85 34</a>
                 · <a href="mailto:m.ceylan@cm-bau.at">m.ceylan@cm-bau.at</a>
@@ -2422,7 +2495,7 @@ body.menu-open .float-menu { display: none; }
             <div class="about-attribution-line"></div>
             <div>
               <div class="about-attribution-name">Ing. Abdurrahman Türkyilmaz</div>
-              <div class="about-attribution-role">Projektleiter</div>
+              <div class="about-attribution-role" data-i18n="abt_role_pm">Projektleiter</div>
               <div class="about-attribution-contact">
                 <a href="tel:+436765102339">+43 676 510 23 39</a>
                 · <a href="mailto:a.tuerkyilmaz@cm-bau.at">a.tuerkyilmaz@cm-bau.at</a>
@@ -2439,12 +2512,12 @@ body.menu-open .float-menu { display: none; }
 <section class="cta-strip">
   <div class="cta-strip-inner">
     <div>
-      <div class="cta-overline reveal">Präzision · Effizienz · CM</div>
-      <h2 class="cta-headline reveal reveal-d1">Bereit für ein Bauvorhaben<br /><em>auf höchstem Niveau?</em></h2>
+      <div class="cta-overline reveal" data-i18n="cta_overline">Präzision · Effizienz · CM</div>
+      <h2 class="cta-headline reveal reveal-d1" data-i18n-html="cta_headline">Bereit für ein Bauvorhaben<br /><em>auf höchstem Niveau?</em></h2>
     </div>
     <div class="cta-actions reveal reveal-d2">
       <a href="#kontakt" class="btn-primary">
-        <span>Termin vereinbaren</span>
+        <span data-i18n="nav_cta">Termin vereinbaren</span>
         <svg width="18" height="10" viewBox="0 0 18 10" fill="none"><path d="M1 5h16M13 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" /></svg>
       </a>
       <a href="tel:+4355229308" class="btn-ghost">+43 5522 93 0 87</a>
@@ -2456,13 +2529,13 @@ body.menu-open .float-menu { display: none; }
 <section class="contact" id="kontakt">
   <div class="contact-grid">
     <div>
-      <div class="section-label reveal">Kontakt</div>
-      <h2 class="section-title reveal reveal-d1" style="margin-bottom: 2.5rem;">Wir sind<br /><em>für Sie da.</em></h2>
+      <div class="section-label reveal" data-i18n="ctc_label">Kontakt</div>
+      <h2 class="section-title reveal reveal-d1" data-i18n-html="ctc_title" style="margin-bottom: 2.5rem;">Wir sind<br /><em>für Sie da.</em></h2>
       <div class="contact-info-block reveal reveal-d2">
-        <div class="contact-info-label">Standort</div>
+        <div class="contact-info-label" data-i18n="ctc_location">Standort</div>
         <div class="contact-info-value">
           Im Kratta 2, 6800 Feldkirch, AT
-          <span class="secondary">Vorarlberg, Österreich</span>
+          <span class="secondary" data-i18n="ctc_region">Vorarlberg, Österreich</span>
           <a href="https://maps.google.com/?q=Im+Kratta+2,+6800+Feldkirch,+Austria"
              target="_blank" rel="noopener"
              class="contact-route-btn">
@@ -2470,71 +2543,71 @@ body.menu-open .float-menu { display: none; }
               <path d="M12 21s-7-7.5-7-12a7 7 0 1 1 14 0c0 4.5-7 12-7 12z" stroke-linejoin="round" />
               <circle cx="12" cy="9" r="2.5" />
             </svg>
-            <span>Routenplaner öffnen</span>
+            <span data-i18n="ctc_route_btn">Routenplaner öffnen</span>
           </a>
         </div>
       </div>
       <div class="contact-info-block reveal reveal-d2">
-        <div class="contact-info-label">Büro</div>
+        <div class="contact-info-label" data-i18n="ctc_office">Büro</div>
         <div class="contact-info-value"><a href="tel:+4355229308">+43 5522 93 0 87</a><span class="secondary"><a href="mailto:office@cm-bau.at">office@cm-bau.at</a></span></div>
       </div>
       <div class="contact-info-block reveal reveal-d3">
-        <div class="contact-info-label">CEO</div>
+        <div class="contact-info-label" data-i18n="ctc_ceo_label">CEO</div>
         <div class="contact-info-value">Mamer Ceylan<span class="secondary"><a href="tel:+436769408534">+43 676 940 85 34</a> · <a href="mailto:m.ceylan@cm-bau.at">m.ceylan@cm-bau.at</a></span></div>
       </div>
       <div class="contact-info-block reveal reveal-d3">
-        <div class="contact-info-label">Projekt</div>
+        <div class="contact-info-label" data-i18n="ctc_pm_label">Projekt</div>
         <div class="contact-info-value">Ing. Abdurrahman Türkyilmaz<span class="secondary"><a href="tel:+436765102339">+43 676 510 23 39</a> · <a href="mailto:a.tuerkyilmaz@cm-bau.at">a.tuerkyilmaz@cm-bau.at</a></span></div>
       </div>
       <div class="contact-info-block reveal reveal-d3">
-        <div class="contact-info-label">Sprechzeit</div>
-        <div class="contact-info-value" style="font-size: 0.95rem; font-family: var(--font-body); font-weight: 400;">Mo – Fr · 08:00 – 12:00<span class="secondary">13:00 – 17:00</span></div>
+        <div class="contact-info-label" data-i18n="ctc_hours">Sprechzeit</div>
+        <div class="contact-info-value" style="font-size: 0.95rem; font-family: var(--font-body); font-weight: 400;"><span data-i18n="ctc_hours_1">Mo – Fr · 08:00 – 12:00</span><span class="secondary">13:00 – 17:00</span></div>
       </div>
     </div>
 
     <div class="contact-form reveal reveal-d1">
-      <h3 class="contact-form-title">Projekt anfragen</h3>
-      <p class="contact-form-sub">Antwort innerhalb von 24 Stunden.</p>
+      <h3 class="contact-form-title" data-i18n="form_title">Projekt anfragen</h3>
+      <p class="contact-form-sub" data-i18n="form_sub">Antwort innerhalb von 24 Stunden.</p>
       <div class="field field-row">
-        <div><label for="vn">Vorname</label><input id="vn" type="text" autocomplete="given-name" /></div>
-        <div><label for="nn">Nachname</label><input id="nn" type="text" autocomplete="family-name" /></div>
+        <div><label for="vn" data-i18n="form_firstname">Vorname</label><input id="vn" type="text" autocomplete="given-name" /></div>
+        <div><label for="nn" data-i18n="form_lastname">Nachname</label><input id="nn" type="text" autocomplete="family-name" /></div>
       </div>
       <div class="field field-row">
-        <div><label for="em">E-Mail</label><input id="em" type="email" autocomplete="email" /></div>
-        <div><label for="tel">Mobilnummer</label><input id="tel" type="tel" autocomplete="tel" /></div>
+        <div><label for="em" data-i18n="form_email">E-Mail</label><input id="em" type="email" autocomplete="email" /></div>
+        <div><label for="tel" data-i18n="form_phone">Mobilnummer</label><input id="tel" type="tel" autocomplete="tel" /></div>
       </div>
       <div class="field">
-        <label for="anliegen">Ihr Anliegen</label>
+        <label for="anliegen" data-i18n="form_concern">Ihr Anliegen</label>
         <select id="anliegen">
-          <option>Auswahl …</option>
-          <option>Neubau</option>
-          <option>Altbau</option>
-          <option>Umbau</option>
-          <option>Sanierung</option>
-          <option>Holzbau</option>
-          <option>Ausführung</option>
-          <option>Sonstiges</option>
+          <option data-i18n="form_select">Auswahl …</option>
+          <option data-i18n="form_neubau">Neubau</option>
+          <option data-i18n="form_altbau">Altbau</option>
+          <option data-i18n="form_umbau">Umbau</option>
+          <option data-i18n="form_san">Sanierung</option>
+          <option data-i18n="form_holz">Holzbau</option>
+          <option data-i18n="form_ausf">Ausführung</option>
+          <option data-i18n="form_other">Sonstiges</option>
         </select>
       </div>
       <div class="field">
-        <label>Wie wollen Sie kontaktiert werden?</label>
+        <label data-i18n="form_contact_pref">Wie wollen Sie kontaktiert werden?</label>
         <div class="field-radio-group">
-          <div class="field-radio"><input type="radio" name="ch" id="ch1" checked /><label for="ch1">Rückruf</label></div>
-          <div class="field-radio"><input type="radio" name="ch" id="ch2" /><label for="ch2">E-Mail</label></div>
+          <div class="field-radio"><input type="radio" name="ch" id="ch1" checked /><label for="ch1" data-i18n="form_callback">Rückruf</label></div>
+          <div class="field-radio"><input type="radio" name="ch" id="ch2" /><label for="ch2" data-i18n="form_email_short">E-Mail</label></div>
           <div class="field-radio"><input type="radio" name="ch" id="ch3" /><label for="ch3">WhatsApp</label></div>
-          <div class="field-radio field-radio-easter"><input type="radio" name="ch" id="ch4" /><label for="ch4" id="brieftaubeLabel">Brieftaube</label></div>
+          <div class="field-radio field-radio-easter"><input type="radio" name="ch" id="ch4" /><label for="ch4" id="brieftaubeLabel" data-i18n="form_pigeon">Brieftaube</label></div>
         </div>
-        <div class="brieftaube-msg" id="brieftaubeMsg">
+        <div class="brieftaube-msg" id="brieftaubeMsg" data-i18n-html="form_pigeon_msg">
           Leider sind alle unsere Tauben im Einsatz. Versuche es doch über
           einen anderen Kanal&nbsp;<span style="color:var(--copper);">(:</span>
         </div>
       </div>
       <div class="field">
-        <label for="msg">Nachricht</label>
+        <label for="msg" data-i18n="form_message">Nachricht</label>
         <textarea id="msg" rows="4"></textarea>
       </div>
       <button class="contact-submit" type="button" onclick="alert('Demo: Nachricht würde an office@cm-bau.at gesendet')">
-        <span>Anfrage senden</span>
+        <span data-i18n="form_submit">Anfrage senden</span>
         <svg width="18" height="10" viewBox="0 0 18 10" fill="none"><path d="M1 5h16M13 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" /></svg>
       </button>
     </div>
@@ -2547,24 +2620,24 @@ body.menu-open .float-menu { display: none; }
     <div class="footer-top">
       <div>
         <div class="footer-mark">CM<span>·</span>BAU</div>
-        <p class="footer-tagline">Generalunternehmer in Vorarlberg. Wo Handwerk Architektur wird.</p>
+        <p class="footer-tagline" data-i18n="footer_tagline">Generalunternehmer in Vorarlberg. Wo Handwerk Architektur wird.</p>
       </div>
       <div class="footer-col">
-        <h5>Navigation</h5>
-        <ul><li><a href="#leistungen">Leistungen</a></li><li><a href="#prozess">Prozess</a></li><li><a href="#referenzen">Referenzen</a></li><li><a href="#ueber-uns">Über uns</a></li></ul>
+        <h5 data-i18n="footer_nav">Navigation</h5>
+        <ul><li><a href="#leistungen" data-i18n="nav_services">Leistungen</a></li><li><a href="#prozess" data-i18n="nav_process">Prozess</a></li><li><a href="#referenzen" data-i18n="nav_references">Referenzen</a></li><li><a href="#ueber-uns" data-i18n="nav_about">Über uns</a></li></ul>
       </div>
       <div class="footer-col">
-        <h5>Kontakt</h5>
+        <h5 data-i18n="footer_contact">Kontakt</h5>
         <ul><li><a href="tel:+4355229308">+43 5522 93 0 87</a></li><li><a href="mailto:office@cm-bau.at">office@cm-bau.at</a></li><li>Im Kratta 2, 6800 Feldkirch, AT</li></ul>
       </div>
       <div class="footer-col">
-        <h5>Disziplinen</h5>
-        <ul><li>Neubau</li><li>Umbau</li><li>Sanierung</li><li>Holzbau</li></ul>
+        <h5 data-i18n="footer_disciplines">Disziplinen</h5>
+        <ul><li data-i18n="srv_neubau_title">Neubau</li><li data-i18n="srv_umbau_title">Umbau</li><li data-i18n="srv_san_title">Sanierung</li><li data-i18n="srv_holz_title">Holzbau</li></ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2026 CM Baumanagement</div>
-      <div class="footer-legal"><a href="#">Impressum</a><a href="#">Datenschutz</a></div>
+      <div class="footer-copy" data-i18n="footer_copy">© 2026 CM Baumanagement</div>
+      <div class="footer-legal"><a href="#" data-i18n="footer_imprint">Impressum</a><a href="#" data-i18n="footer_privacy">Datenschutz</a></div>
     </div>
   </div>
 </footer>
@@ -2591,6 +2664,314 @@ if (!isTouchDevice && window.innerWidth > 900) {
 const lenis = new Lenis({duration:1.4,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true,smoothTouch:false});
 function lenisRaf(time){lenis.raf(time);requestAnimationFrame(lenisRaf);}
 requestAnimationFrame(lenisRaf);
+
+// ═══════════════════════════════════════════════════════════
+// I18N — DE / EN / TR (DeepL kalitesinde anlam çevirisi)
+// ═══════════════════════════════════════════════════════════
+const I18N = {
+  de: {
+    page_title: "CM Baumanagement — Wo Handwerk Architektur wird.",
+    page_desc: "Generalunternehmer in Vorarlberg. Neubau, Umbau, Sanierung und Holzbau auf höchstem Niveau. Mamer Ceylan, Feldkirch.",
+    nav_services: "Leistungen", nav_process: "Prozess", nav_references: "Referenzen", nav_about: "Über uns", nav_contact: "Kontakt", nav_cta: "Termin vereinbaren", lang_label: "Sprache",
+    hero_overline: "Generalunternehmer · seit 2023",
+    hero_title_1: "Präzision.", hero_title_2: "Effizienz.", hero_title_3: "Handschlag.",
+    hero_sub: "Ihr bevorzugter Generalunternehmer in Vorarlberg für Neubau, Umbau, Sanierung und Holzbau. Wir stehen für strukturierte Bauprozesse, die Qualität, Zeit und Budget vereinen — von der ersten Idee bis zur Schlüsselübergabe.",
+    hero_cta_primary: "Projekt besprechen", hero_cta_secondary: "Leistungen entdecken",
+    spec_label: "Live · Aktuelle Auslastung", spec_active: "Aktive Projekte", spec_region: "Region", spec_specialty: "Spezialisierung", spec_specialty_value: "Holzbau", spec_capacity: "Kapazität Q3 / 2026", spec_capacity_value: "verfügbar", spec_response: "Reaktionszeit", scroll_word: "Scroll",
+    stat_founded: "Gegründet", stat_projects: "Projekte", stat_clients: "Zufriedene Kunden", stat_quality: "Handschlagqualität",
+    phil_label: "CM · Bedeutung",
+    phil_tagline: "CM steht für <em>Craftsmanship & Modernity.</em> Wir bewahren das traditionelle Handwerk und sehen die Zukunft in der konsequenten Modernisierung.",
+    guar_label: "Bauen ohne Kompromisse",
+    guar_title: "Was Bauherren<br /><em>von uns erwarten dürfen.</em>",
+    guar_lead: "Als Generalunternehmer übernehmen wir die komplette Koordination aller regionalen Fachbetriebe aus dem Ländle und Umgebung. Zwei Versprechen stehen dabei kompromisslos im Vordergrund.",
+    guar_termin_title: "Termin-Garantie", guar_termin_emph: "Ihre Zeit ist kostbar.",
+    guar_termin_text: "Daher legen wir großen Wert auf die Einhaltung des vereinbarten Zeitplans. Mit bewährten Prozessen und effizienter Koordination garantieren wir eine zügige und termingerechte Fertigstellung Ihres Projekts.",
+    guar_budget_title: "Budget-Sicherheit", guar_budget_emph: "Transparente Kostenkontrolle.",
+    guar_budget_text: "Transparente Kostenaufstellung und striktes Budgetmanagement bilden die Grundsteine unserer Arbeit. Wir setzen uns dafür ein, Ihr Budget sorgfältig einzuhalten und durch kreative und effektive Lösungen eine wirtschaftliche Realisierung Ihres Projekts sicherzustellen.",
+    guar_foot: "Wir arbeiten ausschließlich mit geprüften, regionalen Fachbetrieben aus Vorarlberg und Umgebung — vom ersten Aushub bis zur Schlüsselübergabe.",
+    srv_label: "Leistungsspektrum", srv_title: "Spezialist für<br /><em>Bauvorhaben.</em>",
+    srv_lead: "Von der Revitalisierung historischer Bauten über moderne Neubauten bis hin zu anspruchsvollen Umbauprojekten. Spezialisierte Bauleistungen werden dabei durch entsprechend qualifizierte, regionale Fachbetriebe umgesetzt.",
+    srv_neubau_title: "Neubau", srv_neubau_text: "Von der Grundstücksanalyse bis zum Einzug. Schlüsselfertige Generalunternehmerleistung mit klarer Kostentransparenz und definierten Meilensteinen.",
+    srv_neubau_tag1: "Einfamilienhaus", srv_neubau_tag2: "Wohnbau", srv_neubau_tag3: "Gewerbe",
+    srv_umbau_title: "Umbau", srv_umbau_text: "Den Bestand neu denken. Strukturelle Anpassungen, Aufstockungen und Zubauten — mit Respekt vor der Substanz und Klarheit in der Umsetzung.",
+    srv_umbau_tag1: "Aufstockung", srv_umbau_tag2: "Zubau", srv_umbau_tag3: "Erweiterung",
+    srv_san_title: "Sanierung", srv_san_text: "Altbauten fachgerecht modernisieren. Energetische Optimierung, Substanzerhalt, gestalterische Aufwertung — koordiniert mit regionalen Fachbetrieben.",
+    srv_san_tag1: "Energetisch", srv_san_tag2: "Denkmalschutz", srv_san_tag3: "Modernisierung",
+    srv_holz_title: "Holzbau", srv_holz_text: "Unsere Wurzeln. Konstruktiver Holzbau, vom Aufstockungsmodul bis zum vollständigen Holzhaus — als nachhaltiges, charaktervolles Statement.",
+    srv_holz_tag1: "Konstruktion", srv_holz_tag2: "Holzhaus", srv_holz_tag3: "Nachhaltig",
+    atm_overline: "Atmosphäre · Vorarlberg",
+    atm_title: "Wenn der Tag<br /><em>zur Ruhe kommt.</em>",
+    atm_sub: "Ein fertiges Bauwerk ist mehr als Mauern, Holz und Glas. Es ist der Ort, an dem Geschichten beginnen — sicher gebaut, sorgfältig koordiniert, termingerecht übergeben.",
+    prin_label: "Unsere Werte", prin_title: "Fünf Prinzipien.<br /><em>Eine Verpflichtung.</em>",
+    prin_lead: "Entdecken Sie unsere vielfältige Palette an Dienstleistungen, die darauf ausgerichtet sind, all Ihre individuellen Bedürfnisse und Anforderungen bestmöglich zu erfüllen.",
+    prin1_title: "Projektberatung + Management",
+    prin1_text: "Wir starten jedes Projekt mit einer detaillierten Aufnahme Ihrer Vision, um Ihre Wünsche maßgerecht umzusetzen. Unser Team arbeitet eng mit Ihnen zusammen, um jeden Aspekt Ihres Projektes zu prüfen und zu koordinieren, wobei Ihre Anforderungen stets im Vordergrund stehen.",
+    prin2_title: "Koordination",
+    prin2_text: "Ein reibungsloser Ablauf erfordert eine sorgfältige Abstimmung aller Gewerke. Wir übernehmen die Koordination der beteiligten Unternehmen und Fachkräfte, um eine harmonische und zielgerichtete Zusammenarbeit zu sichern.",
+    prin3_title: "Nachhaltigkeit",
+    prin3_text: "Nachhaltige Materialbeschaffung ist ein zentrales Anliegen, daher wählen wir Materialien und Ressourcen sorgfältig aus, um nicht nur die Umwelt zu schonen, sondern auch langfristige Wertbeständigkeit in Ihr Bauwerk zu bringen.",
+    prin4_title: "Termintreue", prin4_emph: "Ihre Zeit ist kostbar!",
+    prin4_text: "Daher legen wir großen Wert auf die Einhaltung des vereinbarten Zeitplans. Mit bewährten Prozessen und effizienter Koordination garantieren wir eine zügige und termingerechte Fertigstellung Ihres Projekts.",
+    prin5_title: "Kostenmanagement",
+    prin5_text: "Transparente Kostenaufstellung und striktes Budgetmanagement bilden die Grundsteine unserer Arbeit. Wir setzen uns dafür ein, Ihr Budget sorgfältig einzuhalten und durch kreative und effektive Lösungen eine wirtschaftliche Realisierung Ihres Projekts sicherzustellen.",
+    prc_label: "Ablauf", prc_title: "Von der Idee.<br /><em>Bis zur Übergabe.</em>",
+    prc_lead: "Strukturierte Bauprozesse statt improvisiertem Aktionismus. Jeder Schritt ist dokumentiert, terminiert und mit Ihnen abgestimmt.",
+    prc1_title: "Erstgespräch", prc1_text: "Vision, Rahmen, Machbarkeit. Vor Ort oder digital.",
+    prc2_title: "Konzept", prc2_text: "Detaillierte Aufnahme, Variantenstudie, Erstkalkulation.",
+    prc3_title: "Planung", prc3_text: "Behörde, Ausführungsplan, Gewerkekoordination.",
+    prc4_title: "Ausführung", prc4_text: "Bauleitung, Termin- und Kostencontrolling, Qualitätssicherung.",
+    prc5_title: "Übergabe", prc5_text: "Schlussabnahme, Dokumentation, Gewährleistung.",
+    bau_label: "Projekt Aufstockung", bau_title: "Vorher.<br /><em>Nachher.</em>",
+    bau_lead: "Eine reale Aufstockung in Vorarlberg, in zehn Sekunden erzählt. Drei Fassaden, drei Perspektiven — der Bestand bleibt, der Charakter wächst.",
+    bau_tag: "Vorher · Nachher",
+    ref_label: "Referenzen", ref_title: "Realisierte<br /><em>Bauwerke.</em>",
+    ref_lead: "Eine Auswahl unserer Arbeiten in Vorarlberg. Vom Neubau über sensible Sanierungen bis hin zu Holzbau-Projekten mit Charakter.",
+    ref1_title: "Aufstockung", ref1_meta: "Vorher · Nachher", ref1_tag: "Aufstockung",
+    ref2_title: "Hofacker", ref2_meta: "Zubau · Umbau", ref2_tag: "Zubau",
+    ref3_title: "Özgün", ref3_meta: "Schlüsselfertig", ref3_tag: "Neubau",
+    ref4_title: "Spiegel", ref4_meta: "Bestandserneuerung", ref4_tag: "Sanierung",
+    werte_eng_title: "Engagement", werte_eng_text: "Höchste Qualitätsstandards und eine kundenorientierte Herangehensweise zeichnen unsere Arbeit aus.",
+    werte_ver_title: "Vertrauen", werte_ver_text: "Zählen auf unser professionelles Team, das Ihr Bauprojekt mit Sorgfalt und fachlicher Kompetenz zum Erfolg führt.",
+    abt_label: "Geschäftsführung", abt_title: "Die Köpfe<br /><em>hinter CM.</em>",
+    abt_lead: "Wir verstehen die Einzigartigkeit jedes Projektes und bieten daher maßgeschneiderte Lösungen, die präzise auf unsere Kunden abgestimmt werden.",
+    abt_quote: "Ich baue nicht nur Gebäude — ich gestalte Werte.",
+    abt_bio: "Mit Wurzeln im Holzbau und über 15 Jahren Erfahrung in der Baupraxis stehe ich für präzise Planung, klare Struktur und echte Handschlagqualität. Ich verbinde traditionelles Handwerk mit moderner Baukompetenz und entwickle daraus durchdachte, strukturierte Bauprozesse — für Projekte, die Bestand haben und Vertrauen schaffen.",
+    abt_role_ceo: "CEO & Founder", abt_role_pm: "Projektleiter",
+    cta_overline: "Präzision · Effizienz · CM",
+    cta_headline: "Bereit für ein Bauvorhaben<br /><em>auf höchstem Niveau?</em>",
+    ctc_label: "Kontakt", ctc_title: "Wir sind<br /><em>für Sie da.</em>",
+    ctc_location: "Standort", ctc_region: "Vorarlberg, Österreich", ctc_route_btn: "Routenplaner öffnen",
+    ctc_office: "Büro", ctc_ceo_label: "CEO", ctc_pm_label: "Projekt", ctc_hours: "Sprechzeit", ctc_hours_1: "Mo – Fr · 08:00 – 12:00",
+    form_title: "Projekt anfragen", form_sub: "Antwort innerhalb von 24 Stunden.",
+    form_firstname: "Vorname", form_lastname: "Nachname", form_email: "E-Mail", form_phone: "Mobilnummer",
+    form_concern: "Ihr Anliegen", form_select: "Auswahl …",
+    form_neubau: "Neubau", form_altbau: "Altbau", form_umbau: "Umbau", form_san: "Sanierung", form_holz: "Holzbau", form_ausf: "Ausführung", form_other: "Sonstiges",
+    form_contact_pref: "Wie wollen Sie kontaktiert werden?", form_callback: "Rückruf", form_email_short: "E-Mail", form_pigeon: "Brieftaube",
+    form_pigeon_msg: "Leider sind alle unsere Tauben im Einsatz. Versuche es doch über einen anderen Kanal&nbsp;<span style=\"color:var(--copper);\">(:</span>",
+    form_message: "Nachricht", form_submit: "Anfrage senden",
+    footer_tagline: "Generalunternehmer in Vorarlberg. Wo Handwerk Architektur wird.",
+    footer_nav: "Navigation", footer_contact: "Kontakt", footer_disciplines: "Disziplinen",
+    footer_copy: "© 2026 CM Baumanagement", footer_imprint: "Impressum", footer_privacy: "Datenschutz",
+    float_ai: "KI-Assistent · Fragen stellen", float_maps: "Routenplaner · Im Kratta 2", float_wa: "WhatsApp · Sofort-Anfrage", float_top: "Nach oben",
+  },
+  en: {
+    page_title: "CM Baumanagement — Where Craft Becomes Architecture.",
+    page_desc: "General contractor in Vorarlberg, Austria. New builds, renovations, refurbishments and timber construction at the highest level. Mamer Ceylan, Feldkirch.",
+    nav_services: "Services", nav_process: "Process", nav_references: "Projects", nav_about: "About", nav_contact: "Contact", nav_cta: "Book a meeting", lang_label: "Language",
+    hero_overline: "General Contractor · Since 2023",
+    hero_title_1: "Precision.", hero_title_2: "Efficiency.", hero_title_3: "Handshake.",
+    hero_sub: "Your trusted general contractor in Vorarlberg for new builds, renovations, refurbishments and timber construction. We deliver structured building processes that bring quality, timing and budget into perfect balance — from the first idea to the handover of your keys.",
+    hero_cta_primary: "Discuss your project", hero_cta_secondary: "Explore our services",
+    spec_label: "Live · Current Capacity", spec_active: "Active projects", spec_region: "Region", spec_specialty: "Specialisation", spec_specialty_value: "Timber construction", spec_capacity: "Capacity Q3 / 2026", spec_capacity_value: "available", spec_response: "Response time", scroll_word: "Scroll",
+    stat_founded: "Founded", stat_projects: "Projects", stat_clients: "Satisfied clients", stat_quality: "Handshake quality",
+    phil_label: "CM · Meaning",
+    phil_tagline: "CM stands for <em>Craftsmanship & Modernity.</em> We honour traditional craft and see the future in consistent, considered modernisation.",
+    guar_label: "Building without compromise",
+    guar_title: "What clients can<br /><em>truly expect from us.</em>",
+    guar_lead: "As a general contractor, we coordinate every regional specialist firm across Vorarlberg and the surrounding region. Two promises stand uncompromisingly above all else.",
+    guar_termin_title: "Schedule guarantee", guar_termin_emph: "Your time is precious.",
+    guar_termin_text: "That's why we hold strictly to the agreed schedule. Through proven processes and efficient coordination, we guarantee swift, on-time completion of your project.",
+    guar_budget_title: "Budget assurance", guar_budget_emph: "Transparent cost control.",
+    guar_budget_text: "Transparent cost breakdowns and strict budget management form the foundation of our work. We commit to staying within your budget through creative, effective solutions that ensure your project remains economically sound.",
+    guar_foot: "We work exclusively with vetted regional specialist firms from Vorarlberg and the surrounding region — from the first excavation to the handover of your keys.",
+    srv_label: "Service Spectrum", srv_title: "Specialist in<br /><em>building projects.</em>",
+    srv_lead: "From the revitalisation of historic buildings to modern new builds and demanding renovation projects. Specialised construction work is delivered by suitably qualified regional specialist firms.",
+    srv_neubau_title: "New Build", srv_neubau_text: "From site analysis to move-in. Turnkey general contractor service with clear cost transparency and defined milestones.",
+    srv_neubau_tag1: "Single-family", srv_neubau_tag2: "Residential", srv_neubau_tag3: "Commercial",
+    srv_umbau_title: "Renovation", srv_umbau_text: "Rethinking the existing structure. Structural adaptations, vertical extensions and additions — with respect for the substance and clarity in execution.",
+    srv_umbau_tag1: "Vertical extension", srv_umbau_tag2: "Addition", srv_umbau_tag3: "Expansion",
+    srv_san_title: "Refurbishment", srv_san_text: "Modernising older buildings with expertise. Energy-efficiency upgrades, structural preservation, aesthetic enhancement — coordinated with regional specialist firms.",
+    srv_san_tag1: "Energy", srv_san_tag2: "Heritage", srv_san_tag3: "Modernisation",
+    srv_holz_title: "Timber Construction", srv_holz_text: "Our roots. Structural timber construction, from extension modules to fully timber-built homes — as a sustainable statement of character.",
+    srv_holz_tag1: "Structural", srv_holz_tag2: "Timber home", srv_holz_tag3: "Sustainable",
+    atm_overline: "Atmosphere · Vorarlberg",
+    atm_title: "When the day<br /><em>finds its calm.</em>",
+    atm_sub: "A finished building is more than walls, wood and glass. It is the place where stories begin — built securely, coordinated meticulously, delivered on time.",
+    prin_label: "Our Values", prin_title: "Five principles.<br /><em>One commitment.</em>",
+    prin_lead: "Discover our diverse range of services, designed to meet every individual need and requirement to the highest standard.",
+    prin1_title: "Project consulting + management",
+    prin1_text: "We begin every project with a detailed capture of your vision, to translate your wishes precisely into reality. Our team works closely with you to review and coordinate every aspect of your project, with your requirements always at the centre.",
+    prin2_title: "Coordination",
+    prin2_text: "A smooth process requires careful coordination of every trade. We take on the orchestration of all involved firms and specialists to ensure harmonious, focused collaboration.",
+    prin3_title: "Sustainability",
+    prin3_text: "Sustainable material sourcing is a central concern. We carefully select materials and resources to protect the environment and to bring lasting value to your building.",
+    prin4_title: "On-time delivery", prin4_emph: "Your time is precious!",
+    prin4_text: "That's why we hold strictly to the agreed schedule. With proven processes and efficient coordination, we guarantee swift, on-time completion of your project.",
+    prin5_title: "Cost management",
+    prin5_text: "Transparent cost breakdowns and strict budget management form the foundation of our work. We commit to staying within your budget through creative, effective solutions that ensure your project remains economically sound.",
+    prc_label: "Workflow", prc_title: "From the idea.<br /><em>To the handover.</em>",
+    prc_lead: "Structured building processes instead of improvised activity. Every step is documented, scheduled and aligned with you.",
+    prc1_title: "Initial consultation", prc1_text: "Vision, scope, feasibility. On site or remote.",
+    prc2_title: "Concept", prc2_text: "Detailed survey, options study, first cost estimate.",
+    prc3_title: "Planning", prc3_text: "Authorities, execution plan, trade coordination.",
+    prc4_title: "Execution", prc4_text: "Site management, schedule and cost controlling, quality assurance.",
+    prc5_title: "Handover", prc5_text: "Final inspection, documentation, warranty.",
+    bau_label: "Vertical Extension Project", bau_title: "Before.<br /><em>After.</em>",
+    bau_lead: "A real vertical extension in Vorarlberg, told in ten seconds. Three façades, three perspectives — the existing structure remains, the character grows.",
+    bau_tag: "Before · After",
+    ref_label: "Projects", ref_title: "Realised<br /><em>buildings.</em>",
+    ref_lead: "A selection of our work in Vorarlberg. From new builds to sensitive refurbishments and timber projects with character.",
+    ref1_title: "Vertical Extension", ref1_meta: "Before · After", ref1_tag: "Extension",
+    ref2_title: "Hofacker", ref2_meta: "Addition · Renovation", ref2_tag: "Addition",
+    ref3_title: "Özgün", ref3_meta: "Turnkey", ref3_tag: "New Build",
+    ref4_title: "Spiegel", ref4_meta: "Building renewal", ref4_tag: "Refurbishment",
+    werte_eng_title: "Commitment", werte_eng_text: "The highest quality standards and a client-centred approach define our work.",
+    werte_ver_title: "Trust", werte_ver_text: "Rely on our professional team to bring your building project to success with care and expertise.",
+    abt_label: "Leadership", abt_title: "The minds<br /><em>behind CM.</em>",
+    abt_lead: "We understand the uniqueness of every project, and so we deliver tailored solutions precisely shaped to our clients.",
+    abt_quote: "I don't just build buildings — I shape values.",
+    abt_bio: "Rooted in timber construction with over 15 years of building experience, I stand for precise planning, clear structure and genuine handshake quality. I bring traditional craft together with modern construction expertise, developing thoughtful, structured building processes — for projects that endure and that earn trust.",
+    abt_role_ceo: "CEO & Founder", abt_role_pm: "Project Manager",
+    cta_overline: "Precision · Efficiency · CM",
+    cta_headline: "Ready for a building project<br /><em>at the highest level?</em>",
+    ctc_label: "Contact", ctc_title: "We are<br /><em>here for you.</em>",
+    ctc_location: "Location", ctc_region: "Vorarlberg, Austria", ctc_route_btn: "Open route planner",
+    ctc_office: "Office", ctc_ceo_label: "CEO", ctc_pm_label: "Project", ctc_hours: "Office hours", ctc_hours_1: "Mon – Fri · 08:00 – 12:00",
+    form_title: "Request a project", form_sub: "Reply within 24 hours.",
+    form_firstname: "First name", form_lastname: "Last name", form_email: "Email", form_phone: "Mobile",
+    form_concern: "Your enquiry", form_select: "Choose …",
+    form_neubau: "New build", form_altbau: "Existing building", form_umbau: "Renovation", form_san: "Refurbishment", form_holz: "Timber construction", form_ausf: "Execution", form_other: "Other",
+    form_contact_pref: "How would you like to be contacted?", form_callback: "Callback", form_email_short: "Email", form_pigeon: "Carrier pigeon",
+    form_pigeon_msg: "Sadly, all our pigeons are out on duty. How about another channel&nbsp;<span style=\"color:var(--copper);\">(:</span>",
+    form_message: "Message", form_submit: "Send enquiry",
+    footer_tagline: "General contractor in Vorarlberg. Where craft becomes architecture.",
+    footer_nav: "Navigation", footer_contact: "Contact", footer_disciplines: "Disciplines",
+    footer_copy: "© 2026 CM Baumanagement", footer_imprint: "Imprint", footer_privacy: "Privacy",
+    float_ai: "AI assistant · Ask a question", float_maps: "Route planner · Im Kratta 2", float_wa: "WhatsApp · Instant enquiry", float_top: "Back to top",
+  },
+  tr: {
+    page_title: "CM Baumanagement — Zanaatın mimariye dönüştüğü yer.",
+    page_desc: "Vorarlberg'de genel müteahhitlik. Yeni yapı, tadilat, restorasyon ve ahşap inşaat — en yüksek standartta. Mamer Ceylan, Feldkirch.",
+    nav_services: "Hizmetler", nav_process: "Süreç", nav_references: "Projeler", nav_about: "Hakkımızda", nav_contact: "İletişim", nav_cta: "Görüşme planla", lang_label: "Dil",
+    hero_overline: "Genel Müteahhit · 2023'ten bu yana",
+    hero_title_1: "Hassasiyet.", hero_title_2: "Verimlilik.", hero_title_3: "Söz senedi.",
+    hero_sub: "Vorarlberg'de yeni yapı, tadilat, restorasyon ve ahşap inşaat alanında tercih edilen genel müteahhidiniz. Kaliteyi, zamanı ve bütçeyi tek bir denge içinde buluşturan, yapılandırılmış inşaat süreçlerini savunuyoruz — ilk fikirden anahtar tesliminin son anına kadar.",
+    hero_cta_primary: "Projenizi konuşalım", hero_cta_secondary: "Hizmetleri keşfet",
+    spec_label: "Canlı · Mevcut Doluluk", spec_active: "Aktif projeler", spec_region: "Bölge", spec_specialty: "Uzmanlık", spec_specialty_value: "Ahşap inşaat (Holzbau)", spec_capacity: "Q3 / 2026 kapasitesi", spec_capacity_value: "müsait", spec_response: "Yanıt süresi", scroll_word: "Kaydır",
+    stat_founded: "Kuruluş", stat_projects: "Proje", stat_clients: "Memnun müşteri", stat_quality: "Söz senedi",
+    phil_label: "CM · Anlamı",
+    phil_tagline: "CM <em>Craftsmanship & Modernity</em> anlamına gelir. Geleneksel zanaatı korur, geleceği tutarlı bir modernleşmede görürüz.",
+    guar_label: "Tavizsiz inşa",
+    guar_title: "Yapı sahiplerinin<br /><em>bizden gerçekten beklediği şeyler.</em>",
+    guar_lead: "Genel müteahhit olarak Vorarlberg ve çevresindeki tüm bölgesel uzman firmaları biz koordine ederiz. İki söz, hiçbir tavize yer bırakmadan başta gelir.",
+    guar_termin_title: "Termin garantisi", guar_termin_emph: "Zamanınız değerlidir.",
+    guar_termin_text: "Bu yüzden kararlaştırılan zaman planına sıkı sıkıya bağlı kalırız. Kanıtlanmış süreçler ve etkin koordinasyon ile projenizin hızlı ve zamanında tamamlanmasını garanti ederiz.",
+    guar_budget_title: "Bütçe güvencesi", guar_budget_emph: "Şeffaf maliyet kontrolü.",
+    guar_budget_text: "Şeffaf maliyet dökümü ve sıkı bütçe yönetimi işimizin temel taşlarıdır. Yaratıcı ve etkili çözümlerle, bütçenizin içinde kalarak projenizin ekonomik açıdan da sağlam yürümesini sağlamayı taahhüt ederiz.",
+    guar_foot: "Yalnızca Vorarlberg ve çevresinden seçilmiş, denenmiş bölgesel uzman firmalarla çalışırız — ilk kazıdan anahtar teslimine kadar.",
+    srv_label: "Hizmet Yelpazesi", srv_title: "İnşaat<br /><em>uzmanı.</em>",
+    srv_lead: "Tarihi yapıların revitalizasyonundan modern yeni yapılara, talepkar dönüşüm projelerine kadar. Uzmanlık gerektiren işler, ehliyetli bölgesel uzman firmalar tarafından icra edilir.",
+    srv_neubau_title: "Yeni Yapı (Neubau)", srv_neubau_text: "Arsa analizinden taşınmaya kadar. Net maliyet şeffaflığı ve tanımlı kilometre taşları ile anahtar teslim genel müteahhitlik hizmeti.",
+    srv_neubau_tag1: "Müstakil ev", srv_neubau_tag2: "Konut", srv_neubau_tag3: "Ticari",
+    srv_umbau_title: "Tadilat (Umbau)", srv_umbau_text: "Mevcut yapıyı yeniden düşünmek. Yapısal uyarlamalar, üst kat eklemeleri (Aufstockung) ve eklentiler — yapıya saygıyla, uygulamada netlikle.",
+    srv_umbau_tag1: "Üst kat ekleme", srv_umbau_tag2: "Ek bina", srv_umbau_tag3: "Genişletme",
+    srv_san_title: "Restorasyon (Sanierung)", srv_san_text: "Eski yapıları doğru şekilde modernize etmek. Enerji optimizasyonu, yapısal koruma, estetik iyileştirme — bölgesel uzman firmalarla koordineli.",
+    srv_san_tag1: "Enerji", srv_san_tag2: "Tarihi koruma", srv_san_tag3: "Modernizasyon",
+    srv_holz_title: "Ahşap İnşaat (Holzbau)", srv_holz_text: "Köklerimiz. Üst kat modüllerinden tamamı ahşap evlere kadar yapısal ahşap inşaat — sürdürülebilir ve karakterli bir tercih.",
+    srv_holz_tag1: "Yapısal", srv_holz_tag2: "Ahşap ev", srv_holz_tag3: "Sürdürülebilir",
+    atm_overline: "Atmosfer · Vorarlberg",
+    atm_title: "Gün<br /><em>huzura erdiğinde.</em>",
+    atm_sub: "Bitmiş bir yapı sadece duvar, ahşap ve camdan ibaret değildir. Hikayelerin başladığı yerdir — güvenle inşa edilmiş, titizlikle koordine edilmiş, zamanında teslim edilmiş.",
+    prin_label: "Değerlerimiz", prin_title: "Beş ilke.<br /><em>Tek bir taahhüt.</em>",
+    prin_lead: "İhtiyaçlarınızı ve beklentilerinizi en üst düzeyde karşılamak üzere şekillenmiş geniş hizmet yelpazemizi keşfedin.",
+    prin1_title: "Proje danışmanlığı + yönetimi",
+    prin1_text: "Her projeye, vizyonunuzun detaylı kaydıyla başlarız ki dileklerinizi tam olarak hayata geçirebilelim. Ekibimiz, projenin her boyutunu sizinle yakın çalışarak inceler ve koordine eder; gereksinimleriniz daima merkezdedir.",
+    prin2_title: "Koordinasyon",
+    prin2_text: "Pürüzsüz bir akış, tüm meslek dallarının dikkatli uyumunu gerektirir. İlgili tüm firma ve uzmanların koordinasyonunu üstlenir, uyumlu ve hedefe odaklı bir iş birliği sağlarız.",
+    prin3_title: "Sürdürülebilirlik",
+    prin3_text: "Sürdürülebilir malzeme tedariki bizim için merkezi bir konudur. Hem çevreyi korumak hem de yapınıza uzun ömürlü değer katmak için malzemeleri ve kaynakları titizlikle seçeriz.",
+    prin4_title: "Termin sadakati", prin4_emph: "Zamanınız değerlidir!",
+    prin4_text: "Bu yüzden kararlaştırılan zaman planına sıkı sıkıya bağlı kalırız. Kanıtlanmış süreçler ve etkin koordinasyon ile projenizin hızlı ve zamanında tamamlanmasını garanti ederiz.",
+    prin5_title: "Maliyet yönetimi",
+    prin5_text: "Şeffaf maliyet dökümü ve sıkı bütçe yönetimi işimizin temel taşlarıdır. Yaratıcı ve etkili çözümlerle bütçenize özen göstererek projenizin ekonomik açıdan da sağlam yürümesini taahhüt ederiz.",
+    prc_label: "Akış", prc_title: "Fikirden.<br /><em>Anahtar teslimine.</em>",
+    prc_lead: "Doğaçlama eylem yerine yapılandırılmış inşaat süreçleri. Her adım belgelenir, takvimlendirilir ve sizinle uyum içinde ilerler.",
+    prc1_title: "İlk görüşme", prc1_text: "Vizyon, çerçeve, fizibilite. Sahada veya dijital ortamda.",
+    prc2_title: "Konsept", prc2_text: "Detaylı tespit, alternatif çalışması, ilk maliyet hesabı.",
+    prc3_title: "Planlama", prc3_text: "Resmi süreçler, uygulama planı, meslek dalı koordinasyonu.",
+    prc4_title: "Uygulama", prc4_text: "Şantiye yönetimi, termin ve maliyet kontrolü, kalite güvencesi.",
+    prc5_title: "Teslim", prc5_text: "Son kabul, dokümantasyon, garanti süreci.",
+    bau_label: "Üst Kat Ekleme Projesi", bau_title: "Önce.<br /><em>Sonra.</em>",
+    bau_lead: "Vorarlberg'de gerçek bir üst kat ekleme (Aufstockung) projesi, on saniyede anlatıldı. Üç cephe, üç perspektif — yapı kalır, karakter büyür.",
+    bau_tag: "Önce · Sonra",
+    ref_label: "Projeler", ref_title: "Hayata geçirilen<br /><em>yapılar.</em>",
+    ref_lead: "Vorarlberg'deki çalışmalarımızdan bir seçki. Yeni yapılardan duyarlı restorasyonlara, karakter sahibi ahşap projelere kadar.",
+    ref1_title: "Üst Kat Ekleme", ref1_meta: "Önce · Sonra", ref1_tag: "Aufstockung",
+    ref2_title: "Hofacker", ref2_meta: "Ek bina · Tadilat", ref2_tag: "Ek bina",
+    ref3_title: "Özgün", ref3_meta: "Anahtar teslim", ref3_tag: "Yeni Yapı",
+    ref4_title: "Spiegel", ref4_meta: "Yapı yenileme", ref4_tag: "Restorasyon",
+    werte_eng_title: "Bağlılık", werte_eng_text: "En yüksek kalite standartları ve müşteri odaklı yaklaşım çalışmamızın temelini oluşturur.",
+    werte_ver_title: "Güven", werte_ver_text: "Yapı projenizi özen ve uzmanlıkla başarıya taşıyacak profesyonel ekibimize güvenin.",
+    abt_label: "Yönetim", abt_title: "CM'in<br /><em>arkasındaki isimler.</em>",
+    abt_lead: "Her projenin kendine özgü olduğunu biliriz; bu yüzden müşterilerimize özel olarak biçimlenmiş çözümler sunarız.",
+    abt_quote: "Sadece bina inşa etmem — değer kurarım.",
+    abt_bio: "Kökleri ahşap inşaata uzanan, 15 yılı aşan inşaat tecrübesiyle; net planlama, açık yapı ve gerçek söz senedi kalitesini savunuyorum. Geleneksel zanaatı modern inşaat yetkinliğiyle bir araya getirir, kalıcı ve güven veren projeler için düşünülmüş, yapılandırılmış inşaat süreçleri tasarlarım.",
+    abt_role_ceo: "Kurucu & Genel Müdür", abt_role_pm: "Proje Yöneticisi",
+    cta_overline: "Hassasiyet · Verimlilik · CM",
+    cta_headline: "En üst düzeyde<br /><em>bir inşaat projesine hazır mısınız?</em>",
+    ctc_label: "İletişim", ctc_title: "Sizin için<br /><em>buradayız.</em>",
+    ctc_location: "Konum", ctc_region: "Vorarlberg, Avusturya", ctc_route_btn: "Yol tarifi al",
+    ctc_office: "Ofis", ctc_ceo_label: "Genel Müdür", ctc_pm_label: "Proje", ctc_hours: "Mesai saatleri", ctc_hours_1: "Pzt – Cuma · 08:00 – 12:00",
+    form_title: "Proje talep edin", form_sub: "24 saat içinde yanıt alırsınız.",
+    form_firstname: "Ad", form_lastname: "Soyad", form_email: "E-posta", form_phone: "Cep telefonu",
+    form_concern: "Talebiniz", form_select: "Seçiniz …",
+    form_neubau: "Yeni Yapı", form_altbau: "Eski Yapı", form_umbau: "Tadilat", form_san: "Restorasyon", form_holz: "Ahşap İnşaat", form_ausf: "Uygulama", form_other: "Diğer",
+    form_contact_pref: "Sizinle nasıl iletişime geçelim?", form_callback: "Geri arama", form_email_short: "E-posta", form_pigeon: "Posta güvercini",
+    form_pigeon_msg: "Maalesef tüm güvercinlerimiz görevde. Başka bir kanal denemek ister misiniz&nbsp;<span style=\"color:var(--copper);\">(:</span>",
+    form_message: "Mesajınız", form_submit: "Talebi gönder",
+    footer_tagline: "Vorarlberg'de genel müteahhit. Zanaatın mimariye dönüştüğü yer.",
+    footer_nav: "Navigasyon", footer_contact: "İletişim", footer_disciplines: "Disiplinler",
+    footer_copy: "© 2026 CM Baumanagement", footer_imprint: "Künye", footer_privacy: "Gizlilik",
+    float_ai: "AI asistan · Soru sorun", float_maps: "Yol tarifi · Im Kratta 2", float_wa: "WhatsApp · Anında talep", float_top: "Yukarı çık",
+  },
+};
+
+function setLanguage(lang) {
+  if (!I18N[lang]) lang = 'de';
+  const dict = I18N[lang];
+  document.getElementById('htmlRoot').setAttribute('lang', lang);
+  const titleEl = document.getElementById('pageTitle');
+  if (titleEl && dict.page_title) titleEl.textContent = dict.page_title;
+  const descEl = document.getElementById('pageDesc');
+  if (descEl && dict.page_desc) descEl.setAttribute('content', dict.page_desc);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) el.textContent = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-tooltip]').forEach(el => {
+    const key = el.getAttribute('data-i18n-tooltip');
+    if (dict[key] !== undefined) el.setAttribute('data-tooltip', dict[key]);
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('is-active', btn.getAttribute('data-lang') === lang);
+  });
+  try { localStorage.setItem('cmbau_lang', lang); } catch(e) {}
+}
+
+(function initLanguage() {
+  let lang = 'de';
+  try {
+    const saved = localStorage.getItem('cmbau_lang');
+    if (saved && I18N[saved]) {
+      lang = saved;
+    } else {
+      const browserLang = (navigator.language || 'de').toLowerCase().split('-')[0];
+      if (I18N[browserLang]) lang = browserLang;
+    }
+  } catch(e) {}
+  setLanguage(lang);
+})();
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const newLang = btn.getAttribute('data-lang');
+    setLanguage(newLang);
+  });
+});
 document.querySelectorAll('a[href^="#"]').forEach(link=>{
   link.addEventListener('click',e=>{
     const target=document.querySelector(link.getAttribute('href'));
