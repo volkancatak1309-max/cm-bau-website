@@ -654,14 +654,12 @@ img, video { max-width: 100%; display: block; }
 }
 .cm-mark {
   font-family: var(--font-display); font-weight: 200;
-  font-size: clamp(5rem, 18vw, 16rem);
+  font-size: clamp(4rem, 14vw, 11rem);
   line-height: 0.85; letter-spacing: -0.06em;
   color: var(--ivory);
   font-variation-settings: "opsz" 144, "SOFT" 30;
-  position: relative; display: inline-block;
+  position: relative; display: block;
   max-width: 100%;
-  white-space: nowrap;
-  overflow: visible;
 }
 .cm-mark em {
   font-style: italic; color: var(--copper);
@@ -1325,16 +1323,33 @@ img, video { max-width: 100%; display: block; }
   background-image: linear-gradient(135deg, var(--copper-deep) 0%, var(--shadow) 50%, var(--bg-void) 100%);
 }
 .about-portrait::after {
-  content: "M\2009·\2009C";
+  content: "";
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.about-portrait-mark {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-display); font-weight: 200;
-  font-size: clamp(5rem, 11vw, 12rem);
-  letter-spacing: -0.02em;
+  font-size: clamp(4.5rem, 10vw, 11rem);
+  letter-spacing: 0;
   color: rgba(245, 241, 234, 0.85);
   font-variation-settings: "opsz" 144, "SOFT" 50;
   font-style: italic;
-  font-feature-settings: normal;
+  pointer-events: none;
+  z-index: 2;
+}
+.about-portrait-mark span {
+  display: inline-block;
+}
+.about-portrait-mark .dot {
+  width: 0.18em; height: 0.18em;
+  background: var(--copper);
+  border-radius: 50%;
+  margin: 0 0.35em;
+  display: inline-block;
+  vertical-align: middle;
 }
 .about-quote {
   font-family: var(--font-display); font-weight: 300;
@@ -2385,7 +2400,11 @@ body.menu-open .float-menu { display: none; }
     </div>
 
     <div class="about-grid">
-      <div class="about-portrait reveal"></div>
+      <div class="about-portrait reveal">
+        <div class="about-portrait-mark">
+          <span>M</span><span class="dot"></span><span>C</span>
+        </div>
+      </div>
       <div>
         <p class="about-quote reveal reveal-d1">Ich baue nicht nur Gebäude — ich gestalte Werte.</p>
         <p class="about-bio reveal reveal-d2">
