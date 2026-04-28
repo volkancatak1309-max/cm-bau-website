@@ -421,11 +421,11 @@ img, video { max-width: 100%; display: block; }
   font-family: var(--font-display); font-weight: 300;
   /* Mobile-first: smaller, scales up */
   font-size: clamp(2.6rem, 11vw, 8.5rem);
-  line-height: 0.95; letter-spacing: -0.04em;
+  line-height: 1.08; letter-spacing: -0.04em;
   font-variation-settings: "opsz" 144, "SOFT" 30;
   text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
 }
-.hero-title .line { display: block; overflow: hidden; }
+.hero-title .line { display: block; overflow: hidden; padding-bottom: 0.18em; margin-bottom: -0.12em; }
 .hero-title .line > span {
   display: inline-block; transform: translateY(110%);
   transition: transform 1.4s var(--ease-out);
@@ -436,11 +436,6 @@ img, video { max-width: 100%; display: block; }
 .hero-title em {
   font-style: italic; color: var(--copper-bright);
   font-weight: 400; font-variation-settings: "opsz" 144, "SOFT" 90;
-}
-.hero-title .accent-mark {
-  display: inline-block; width: 0.16em; height: 0.16em;
-  background: var(--copper); border-radius: 50%;
-  vertical-align: middle; margin-bottom: 0.2em;
 }
 
 .hero-sub {
@@ -2074,8 +2069,8 @@ body.menu-open .float-menu { display: none; }
         <span data-i18n="hero_overline">Generalunternehmer · seit 2023</span>
       </div>
       <h1 class="hero-title" id="heroTitle">
-        <span class="line"><span data-i18n="hero_title_1">Präzision<span class="accent-mark"></span></span></span>
-        <span class="line"><span><em data-i18n="hero_title_2">Effizienz</em><span class="accent-mark"></span></span></span>
+        <span class="line"><span data-i18n="hero_title_1">Präzision.</span></span>
+        <span class="line"><span><em data-i18n="hero_title_2">Effizienz.</em></span></span>
         <span class="line"><span data-i18n="hero_title_3">Handschlag.</span></span>
       </h1>
       <p class="hero-sub" id="heroSub" data-i18n="hero_sub">
